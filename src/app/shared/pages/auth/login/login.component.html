@@ -1,18 +1,55 @@
-<div>
-  <div>
+<div
+  class="bg-slate-100 min-h-screen flex flex-col items-center justify-center"
+>
+  <div class="w-[18rem]">
+    <h1 class="text-center text-3xl font-semibold text-green-600 pt-5">
+      Gestor
+    </h1>
     <div>
-      <div>
-        <h5>Bem vindo de volta!</h5>
-        <p>Entre para continuar no Gestor</p>
-      </div>
-      <div>
-        <form></form>
+      <div class="p-4">
+        <div class="text-center mb-5">
+          <h5>Bem vindo!</h5>
+          <p class="text-sm">Efetue login ou crie uma nova conta</p>
+        </div>
+        <div>
+          <form class="text-sm">
+            <div class="flex flex-col">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="Informe seu email"
+                class="inputs"
+              />
+            </div>
+
+            <div class="flex flex-col">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Digite uma senha"
+                class="inputs"
+              />
+            </div>
+            <div>
+              <button class="w-full bg-green-700 text-white py-2 rounded-md">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  <div>
-    <p>
-      Não possui uma conta? <a routerLink="/auth/signup">Criar nova conta</a>
-    </p>
+    <div>
+      <div class="mt-4 text-center">
+        <p>
+          Criar conta?
+          <a routerLink="/auth/signup" class="text-blue-500 underline">
+            Signup</a
+          >
+        </p>
+      </div>
+    </div>
   </div>
 </div>

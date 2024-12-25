@@ -16,3 +16,9 @@
     @apply font-nunito;
   }
 }
+
+@layer utilities {
+  .inputs {
+    @apply outline-none border border-gray-300  rounded-md px-2 py-2 mt-2 mb-5;
+  }
+}
