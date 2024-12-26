@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,7 +10,11 @@ import { ApiService } from '../../../services/api.service';
 export class LoginComponent {
   loginForm: FormGroup;
   loading: boolean = false;
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -23,6 +28,7 @@ export class LoginComponent {
       this.apiService.loginUser(formData).subscribe({
         next: (response) => {
           this.loading = false;
+          this.router.navigate(['dashboard/home']);
           console.log('User registered successfully:', response);
         },
         error: (error) => {

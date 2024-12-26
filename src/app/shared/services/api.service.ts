@@ -8,14 +8,14 @@ export class ApiService {
 
   registerUser(data: any) {
     return this.http.post(
-      'https://api-gestor-x0c7.onrender.com/api/v1/users/register',
+      'https://api-gestor-x0c7.onrender.com/api/v1/auth/register',
       data
     );
   }
 
   loginUser(data: any) {
     return this.http.post(
-      'https://api-gestor-x0c7.onrender.com/api/v1/users/login',
+      'https://api-gestor-x0c7.onrender.com/api/v1/auth/login',
       data
     );
   }
