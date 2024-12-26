@@ -12,4 +12,11 @@ export class ApiService {
       data
     );
   }
+
+  loginUser(data: any) {
+    return this.http.post(
+      'https://api-gestor-x0c7.onrender.com/api/v1/users/login',
+      data
+    );
+  }
 }

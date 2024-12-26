@@ -4,13 +4,14 @@ import { HomeComponent } from './shared/pages/home/home.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: HomeComponent,
-  },
-  {
     path: 'auth',
     loadChildren: () =>
       import('./shared/pages/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: '',
+    redirectTo: 'auth/login',
+    pathMatch: 'full',
   },
 ];
 
