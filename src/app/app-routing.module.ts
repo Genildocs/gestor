@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './shared/pages/home/home.component';
 
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
       import('./shared/pages/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./shared/dashboards/dashboards.module').then(
+        (m) => m.DashboardsModule
+      ),
   },
   {
     path: '',

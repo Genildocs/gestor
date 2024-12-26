@@ -8,12 +8,12 @@ import { ApiService } from '../../../services/api.service';
 })
 export class SignupComponent {
   signupForm: FormGroup;
-
+  isValid: boolean = false;
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -29,7 +29,8 @@ export class SignupComponent {
         },
       });
     } else {
-      console.log('Form is invalid');
+      this.isValid = true;
+      console.log('Form is invalid', this.isValid);
     }
   }
 }

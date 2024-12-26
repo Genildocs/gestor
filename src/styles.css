@@ -19,6 +19,24 @@
 
 @layer utilities {
   .inputs {
-    @apply outline-none border border-gray-300  rounded-md px-2 py-2 mt-2 mb-5;
+    @apply outline-none border border-gray-300  rounded-md px-2 py-2 mt-2;
   }
 }
+
+/* Loader */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 100px;
+  height: 15px;
+  -webkit-mask: linear-gradient(90deg, #000 70%, #0000 0) left/20% 100%;
+  background: linear-gradient(#059669 0 0) left -25% top 0 /20% 100% no-repeat
+    #ddd;
+  animation: l7 1s infinite steps(6);
+}
+@keyframes l7 {
+  100% {
+    background-position: right -25% top 0;
+  }
+}
+
+/*  */

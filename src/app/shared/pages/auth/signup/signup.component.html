@@ -19,35 +19,48 @@
             (ngSubmit)="onSubmit()"
             class="text-sm"
           >
-            <div class="flex flex-col">
-              <label for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                formControlName="email"
-                placeholder="Informe seu email"
-                class="inputs"
-              />
+            <div>
+              <div class="flex flex-col">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                  placeholder="Informe seu email"
+                  class="inputs"
+                />
+              </div>
+              <div class="h-5">
+                @if(isValid){
+                <p class="text-red-600 font-semibold">Email inválido</p>
+                }
+              </div>
             </div>
-            <div class="flex flex-col">
-              <label for="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                formControlName="username"
-                placeholder="Escolha um username"
-                class="inputs"
-              />
+            <div>
+              <div class="flex flex-col">
+                <label for="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  formControlName="username"
+                  placeholder="Escolha um username"
+                  class="inputs"
+                />
+              </div>
+              <div class="h-5"></div>
             </div>
-            <div class="flex flex-col">
-              <label for="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                formControlName="password"
-                placeholder="Digite uma senha"
-                class="inputs"
-              />
+            <div>
+              <div class="flex flex-col">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  formControlName="password"
+                  placeholder="Digite uma senha"
+                  class="inputs"
+                />
+              </div>
+              <div class="h-5"></div>
             </div>
             <button
               type="submit"
