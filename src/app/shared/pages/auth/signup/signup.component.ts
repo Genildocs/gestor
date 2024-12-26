@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -8,8 +8,8 @@ import { ApiService } from '../../../services/api.service';
 })
 export class SignupComponent {
   signupForm: FormGroup;
-  isValid: boolean = false;
-  constructor(private fb: FormBuilder, private apiService: ApiService) {
+  loading: boolean = false;
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
@@ -18,19 +18,17 @@ export class SignupComponent {
   }
 
   onSubmit() {
-    if (this.signupForm.valid) {
-      const formData = this.signupForm.value;
-      this.apiService.registerUser(formData).subscribe({
-        next: (response) => {
-          console.log('User registered successfully:', response);
-        },
-        error: (error) => {
-          console.error('Error registering user:', error);
-        },
-      });
-    } else {
-      this.isValid = true;
-      console.log('Form is invalid', this.isValid);
-    }
+    const formData = this.signupForm.value;
+    this.loading = true;
+    this.authService.registerUser(formData).subscribe({
+      next: (response) => {
+        this.loading = false;
+        console.log('User registered successfully:', response);
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Error registering user:', error);
+      },
+    });
   }
 }

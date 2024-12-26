@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ export class LoginComponent {
   loading: boolean = false;
   constructor(
     private fb: FormBuilder,
-    private apiService: ApiService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -22,20 +22,19 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      const formData = this.loginForm.value;
-      this.loading = true;
-      this.apiService.loginUser(formData).subscribe({
-        next: (response) => {
-          this.loading = false;
-          this.router.navigate(['dashboard/home']);
-          console.log('User registered successfully:', response);
-        },
-        error: (error) => {
-          this.loading = false;
-          console.error('Error registering user:', error);
-        },
-      });
-    }
+    const formData = this.loginForm.value;
+    this.loading = true;
+    this.authService.loginUser(formData).subscribe({
+      next: (response: any) => {
+        this.loading = false;
+        const { token } = response.status;
+        this.authService.saveToken(token);
+        this.router.navigate(['dashboard/home']);
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Error registering user:', error);
+      },
+    });
   }
 }

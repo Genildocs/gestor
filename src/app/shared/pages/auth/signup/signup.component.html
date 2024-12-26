@@ -30,11 +30,7 @@
                   class="inputs"
                 />
               </div>
-              <div class="h-5">
-                @if(isValid){
-                <p class="text-red-600 font-semibold">Email inválido</p>
-                }
-              </div>
+              <div class="h-5"></div>
             </div>
             <div>
               <div class="flex flex-col">
@@ -71,6 +67,9 @@
           </form>
         </div>
       </div>
+    </div>
+    <div class="flex items-center justify-center" *ngIf="loading">
+      <div class="loader"></div>
     </div>
     <div>
       <div class="mt-4 text-center">
