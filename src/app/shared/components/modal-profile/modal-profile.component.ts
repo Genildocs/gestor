@@ -1,0 +1,10 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-modal-profile',
+  templateUrl: './modal-profile.component.html',
+  styleUrl: './modal-profile.component.css'
+})
+export class ModalProfileComponent {
+
+}
