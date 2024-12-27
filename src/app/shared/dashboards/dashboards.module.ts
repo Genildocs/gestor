@@ -8,6 +8,12 @@ import { ComponentsModule } from '../components/components.module';
 import { TransacoesComponent } from './home/transacoes/transacoes.component';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FluidModule } from 'primeng/fluid';
+import { DatePickerModule } from 'primeng/datepicker';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumber } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [HomeComponent, ContasComponent, TransacoesComponent],
@@ -17,6 +23,12 @@ import { ButtonModule } from 'primeng/button';
     ComponentsModule,
     Dialog,
     ButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FluidModule,
+    DatePickerModule,
+    InputTextModule,
+    InputNumber,
   ],
 })
 export class DashboardsModule {}

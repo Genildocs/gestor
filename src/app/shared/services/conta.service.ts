@@ -14,6 +14,18 @@ export class ContaService {
   ) {}
 
   getUsers() {
-    return this.http.get(`${this.apiUrl}/users`);
+    return this.http.get(`${this.apiUrl}/users`, {
+      headers: {
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
+
+  createConta(data: any) {
+    return this.http.post(`${this.apiUrl}/contas`, data, {
+      headers: {
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
   }
 }
