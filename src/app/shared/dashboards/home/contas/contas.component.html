@@ -1,1 +1,35 @@
-<p>contas works!</p>
+<div class="pt-[75px] ml-[210px] mr-[10px]">
+  <h5>Dashboards - Contas</h5>
+  <div class="bg-slate-100 w-full p-3 mt-3 flex items-center justify-between">
+    <span class="font-semibold">Contas a pagar</span>
+    <div class="card flex justify-center">
+      <p-button (click)="showDialog()" label="+ Add" />
+      <p-dialog
+        header="Adicionar conta"
+        [(visible)]="visible"
+        [modal]="true"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+        [style]="{ width: '50vw' }"
+        [draggable]="false"
+        [resizable]="false"
+      >
+        <p>Contas</p>
+      </p-dialog>
+    </div>
+  </div>
+  <div>
+    <table class="w-full mt-5 rounded-md bg-slate-300">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Data</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
