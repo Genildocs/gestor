@@ -2,7 +2,7 @@
   class="bg-slate-100 min-h-screen flex flex-col items-center justify-center"
 >
   <div
-    class="w-[20rem] border-[1px] border-solid border-gray-950 p-3 rounded-md"
+    class="w-[20rem] bg-white border-[1px] border-solid border-gray-300 p-3 rounded-md"
   >
     <h1 class="text-center text-3xl font-semibold text-green-600 pt-5">
       Gestor
@@ -26,7 +26,7 @@
                   class="inputs"
                 />
               </div>
-              <div class="h-5">
+              <div class="h-5 flex items-center">
                 <p class="text-xs text-red-500" *ngIf="isValidFormSubmitted">
                   Campo obrigatório
                 </p>
@@ -43,7 +43,7 @@
                   class="inputs"
                 />
               </div>
-              <div class="h-5">
+              <div class="h-5 flex items-center">
                 <p class="text-xs text-red-500" *ngIf="isValidFormSubmitted">
                   Campo obrigatório
                 </p>

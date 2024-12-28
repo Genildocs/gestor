@@ -1,31 +1,71 @@
-<div class="pt-[75px] ml-[210px] mr-[10px]">
+<div class="pt-[75px] md:ml-[210px] mx-[10px]">
   <h5>Dashboards - Contas</h5>
-  <div class="bg-slate-200 w-full p-3 rounded-md mt-3">
+  <div class="bg-slate-200 p-5 rounded-md mt-3">
     <span class="font-semibold">Adicionar contas</span>
     <div class="mt-5">
       <form (ngSubmit)="onSubmit()" [formGroup]="contaForm">
-        <div class="flex flex-col gap-2">
-          <label for="nome">Nome</label>
-          <input pInputText id="nome" formControlName="nome" />
+        <div>
+          <div class="flex flex-col gap-2">
+            <label for="nome">Nome da conta :</label>
+            <input
+              type="text"
+              id="nome"
+              formControlName="nome"
+              placeholder="Informe o nome da conta"
+              class="inputs"
+            />
+          </div>
+          <div class="h-5"></div>
         </div>
-        <div class="flex flex-col gap-2">
-          <label for="valor">Valor</label>
-          <p-inputnumber variant="filled" id="valor" formControlName="valor" />
+        <div>
+          <div class="flex flex-col gap-2">
+            <label for="valor">Valor : </label>
+            <input
+              type="number"
+              id="valor"
+              formControlName="valor"
+              placeholder="R$ 0,00"
+              class="inputs"
+            />
+          </div>
+          <div class="h-5"></div>
         </div>
-        <div class="flex flex-col gap-2">
-          <label for="tipo">Tipo</label>
-          <input pInputText id="tipo" formControlName="tipo" />
+        <div>
+          <div class="flex flex-col gap-2">
+            <label for="tipo">Tipo : </label>
+            <input
+              type="text"
+              id="tipo"
+              formControlName="tipo"
+              placeholder="a pagar ou a receber"
+              class="inputs"
+            />
+          </div>
+          <div class="h-5"></div>
         </div>
-        <div class="flex-auto">
-          <label for="icondisplay" class="block mb-2"> Vencimento </label>
-          <p-datepicker
-            [iconDisplay]="'input'"
-            [showIcon]="true"
-            inputId="icondisplay"
-            formControlName="vencimento"
-          />
+        <div>
+          <div class="flex-auto">
+            <label for="vencimento" class="block mb-2">Vencimento : </label>
+            <input
+              type="date"
+              id="vencimento"
+              formControlName="vencimento"
+              class="inputs"
+            />
+          </div>
+          <div class="h-5"></div>
         </div>
-        <button type="submit">Adicionar</button>
+        <button
+          type="submit"
+          class="bg-green-700 text-white w-full p-2 mt-5 rounded-md"
+        >
+          Adicionar
+        </button>
+        <div class="h-8 flex items-center justify-center">
+          <p class="text-sx text-green-500" *ngIf="visible">
+            Conta adicionada com sucesso
+          </p>
+        </div>
       </form>
     </div>
   </div>

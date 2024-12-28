@@ -23,12 +23,16 @@ export class ContasComponent implements OnInit {
 
   onSubmit() {
     const contForm = this.contaForm.value;
-    console.log(contForm);
     this.contaService.createConta(contForm).subscribe({
       next: (response) => {
+        this.visible = true;
+        setTimeout(() => {
+          this.visible = false;
+        }, 3000);
         console.log(response);
       },
-      error: (error) => {
+      error: (err) => {
+        const { error } = err.error;
         console.log(error);
       },
     });
