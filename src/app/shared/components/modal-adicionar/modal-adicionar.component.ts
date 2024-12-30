@@ -13,18 +13,6 @@ export class ModalAdicionarComponent implements OnInit {
   ngOnInit(): void {
     this.tipos = [
       {
-        nome: 'Credito',
-        code: 'Cdt',
-      },
-      {
-        nome: 'Debito',
-        code: 'Dbt',
-      },
-      {
-        nome: 'Pix',
-        code: 'Pix',
-      },
-      {
         nome: 'Receber',
         code: 'Rcv',
       },
