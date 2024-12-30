@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ContaService } from '../../services/conta.service';
 import { Tipo } from '../../interfaces/contas';
 
 @Component({
@@ -7,9 +9,18 @@ import { Tipo } from '../../interfaces/contas';
   styleUrl: './modal-adicionar.component.css',
 })
 export class ModalAdicionarComponent implements OnInit {
+  contaForm: FormGroup;
   tipos!: Tipo[];
 
   selectedTipo: Tipo | undefined;
+  constructor(private fb: FormBuilder, private contaService: ContaService) {
+    this.contaForm = this.fb.group({
+      nome: ['', Validators.required],
+      description: ['', Validators.required],
+      valor: ['', Validators.required],
+      selectedTipo: ['', Validators.required],
+    });
+  }
   ngOnInit(): void {
     this.tipos = [
       {
