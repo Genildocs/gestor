@@ -7,7 +7,7 @@
         <h1 class="text-4xl font-semibold text-green-700 uppercase">G</h1>
       </div>
       <div>
-        <button>
+        <button (click)="toggleSidebar()">
           <i
             class="pi pi-align-justify"
             style="font-size: 1.2rem; color: aliceblue"
@@ -29,11 +29,10 @@
           class="w-[40px] h-[40px] cursor-pointer"
           (click)="modalVisble()"
         />
-        @if(isVisible){
 
-        <app-modal-profile></app-modal-profile>
-
-        }
+        <div [ngClass]="{ hiddenModal: !isVisible, showModal: isVisible }">
+          <app-modal-profile></app-modal-profile>
+        </div>
       </div>
     </nav>
   </div>

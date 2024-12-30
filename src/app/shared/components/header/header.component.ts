@@ -11,4 +11,8 @@ export class HeaderComponent {
   modalVisble() {
     this.isVisible = !this.isVisible;
   }
+
+  toggleSidebar() {
+    document.getElementById('sidebar')?.classList.toggle('showSidebar');
+  }
 }
