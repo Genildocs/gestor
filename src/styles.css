@@ -22,6 +22,34 @@
   .inputs {
     @apply outline-none border border-gray-300  rounded-md px-2 py-2 mt-2;
   }
+
+  .showSidebar {
+    @apply opacity-0 invisible translate-x-[-100%] md:opacity-100 md:translate-x-0 md:visible;
+  }
+
+  .modalAdicionar {
+    @apply opacity-0 invisible;
+  }
+}
+
+/* table primeng */
+
+@layer primeng {
+  .p-button {
+    @apply !text-sm;
+  }
+
+  .p-toolbar {
+    @apply !p-2;
+  }
+
+  .p-datatable-header {
+    @apply !p-2;
+  }
+
+  .p-inputtext {
+    @apply !text-sm;
+  }
 }
 
 /* Loader */
@@ -41,9 +69,3 @@
 }
 
 /*  */
-
-.showSidebar {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(-100%);
-}

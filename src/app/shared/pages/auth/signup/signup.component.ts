@@ -9,6 +9,7 @@ import { AuthService } from '../../../services/auth.service';
 export class SignupComponent {
   signupForm: FormGroup;
   loading: boolean = false;
+  isValidFormSubmitted = false;
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -27,6 +28,10 @@ export class SignupComponent {
       },
       error: (error) => {
         this.loading = false;
+        this.isValidFormSubmitted = true;
+        setTimeout(() => {
+          this.isValidFormSubmitted = false;
+        }, 3000);
         console.error('Error registering user:', error);
       },
     });
