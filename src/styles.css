@@ -50,6 +50,10 @@
   .p-inputtext {
     @apply !text-sm;
   }
+
+  .p-toast {
+    @apply !w-[350px];
+  }
 }
 
 /* Loader */
