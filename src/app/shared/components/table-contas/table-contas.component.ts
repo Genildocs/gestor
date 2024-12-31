@@ -3,8 +3,6 @@ import { Table } from 'primeng/table';
 import { ContaService } from '../../services/conta.service';
 import { Contas } from '../../interfaces/contas';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ProductService } from '../../services/productservice';
-import { Product } from '../../domain/product';
 
 interface Column {
   field: string;
@@ -22,17 +20,19 @@ interface ExportColumn {
   styleUrl: './table-contas.component.css',
 })
 export class TableContasComponent implements OnInit {
-  productDialog: boolean = false;
+  contaDialog: boolean = false;
 
-  products!: Product[];
+  // products!: Product[];
 
   contas!: Contas[];
 
-  product!: Product;
+  id!: string | undefined;
+
+  // product!: Product;
 
   conta!: Contas;
 
-  selectedProducts!: Product[] | null;
+  selectedContas!: Contas[] | null;
 
   submitted: boolean = false;
 
@@ -45,7 +45,6 @@ export class TableContasComponent implements OnInit {
   exportColumns!: ExportColumn[];
 
   constructor(
-    private productService: ProductService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private contaService: ContaService,
@@ -56,24 +55,32 @@ export class TableContasComponent implements OnInit {
     this.dt.exportCSV();
   }
 
-  loadDemoData() {
-    this.productService.getProducts().then((data) => {
-      this.products = data;
-      this.cd.markForCheck();
+  ngOnInit(): void {
+    this.buscaContas();
+  }
+  buscaContas() {
+    this.contaService.getContas().subscribe({
+      next: (data: any) => {
+        const contas: Contas[] = data.contas;
+        this.contas = contas;
+        this.contas.forEach((conta, idx) => {
+          this.conta = conta;
+          this.id = contas[idx]['_id'];
+        });
+      },
     });
 
     this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' },
+      { label: 'PAGO', value: 'PAGO' },
+      { label: 'PENDENTE', value: 'PENDENTE' },
     ];
 
     this.cols = [
-      { field: 'code', header: 'Code', customExportHeader: 'Product Code' },
-      { field: 'name', header: 'Name' },
+      { field: 'code', header: 'Code', customExportHeader: 'Conta Code' },
+      { field: 'nome', header: 'Nome' },
       { field: 'image', header: 'Image' },
-      { field: 'price', header: 'Price' },
-      { field: 'category', header: 'Category' },
+      { field: 'valor', header: 'Valor' },
+      { field: 'tipo', header: 'Tipo' },
     ];
 
     this.exportColumns = this.cols.map((col) => ({
@@ -83,14 +90,14 @@ export class TableContasComponent implements OnInit {
   }
 
   openNew() {
-    this.product = {};
+    this.conta = {};
     this.submitted = false;
-    this.productDialog = true;
+    this.contaDialog = true;
   }
 
-  editProduct(product: Product) {
-    this.product = { ...product };
-    this.productDialog = true;
+  editProduct(conta: Contas) {
+    this.conta = { ...conta };
+    this.contaDialog = true;
   }
 
   deleteSelectedProducts() {
@@ -99,10 +106,10 @@ export class TableContasComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.products = this.products.filter(
-          (val) => !this.selectedProducts?.includes(val)
+        this.contas = this.contas.filter(
+          (val) => !this.selectedContas?.includes(val)
         );
-        this.selectedProducts = null;
+        this.selectedContas = null;
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -114,18 +121,18 @@ export class TableContasComponent implements OnInit {
   }
 
   hideDialog() {
-    this.productDialog = false;
+    this.contaDialog = false;
     this.submitted = false;
   }
 
-  deleteProduct(product: Product) {
+  deleteProduct(conta: Contas) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + product.name + '?',
+      message: 'Are you sure you want to delete ' + conta.nome + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.products = this.products.filter((val) => val.id !== product.id);
-        this.product = {};
+        this.contas = this.contas.filter((val) => val.id !== conta.id);
+        this.conta = {};
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -138,8 +145,8 @@ export class TableContasComponent implements OnInit {
 
   findIndexById(id: string): number {
     let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
+    for (let i = 0; i < this.contas.length; i++) {
+      if (this.contas[i].id === id) {
         index = i;
         break;
       }
@@ -160,11 +167,9 @@ export class TableContasComponent implements OnInit {
 
   getSeverity(status: string) {
     switch (status) {
-      case 'INSTOCK':
+      case 'PAGO':
         return 'success';
-      case 'LOWSTOCK':
-        return 'warning';
-      case 'OUTOFSTOCK':
+      case 'PENDENTE':
         return 'danger';
       default:
         return 'contrast';
@@ -173,10 +178,9 @@ export class TableContasComponent implements OnInit {
 
   saveProduct() {
     this.submitted = true;
-
-    if (this.product.name?.trim()) {
-      if (this.product.id) {
-        this.products[this.findIndexById(this.product.id)] = this.product;
+    if (this.conta.nome?.trim()) {
+      if (this.conta.id) {
+        this.contas[this.findIndexById(this.conta.id)] = this.conta;
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -184,9 +188,9 @@ export class TableContasComponent implements OnInit {
           life: 3000,
         });
       } else {
-        this.product.id = this.createId();
-        this.product.image = 'product-placeholder.svg';
-        this.products.push(this.product);
+        this.conta.id = this.createId();
+        this.conta.image = 'product-placeholder.svg';
+        this.contas.push(this.conta);
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -195,10 +199,9 @@ export class TableContasComponent implements OnInit {
         });
       }
 
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.product = {};
+      this.contas = [...this.contas];
+      this.contaDialog = false;
+      this.conta = {};
     }
   }
-  ngOnInit(): void {}
 }

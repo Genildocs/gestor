@@ -14,25 +14,25 @@
         icon="pi pi-trash"
         outlined
         (onClick)="deleteSelectedProducts()"
-        [disabled]="!selectedProducts || !selectedProducts.length"
+        [disabled]="!selectedContas || !selectedContas.length"
       />
     </ng-template>
   </p-toolbar>
 
   <p-table
     #dt
-    [value]="products"
+    [value]="contas"
     [rows]="10"
     [columns]="cols"
     [paginator]="true"
     [globalFilterFields]="[
-      'name',
+      'nome',
       'country.name',
       'representative.name',
       'status'
     ]"
     [tableStyle]="{ 'min-width': '75rem' }"
-    [(selection)]="selectedProducts"
+    [(selection)]="selectedContas"
     [rowHover]="true"
     dataKey="id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -58,55 +58,45 @@
           <p-tableHeaderCheckbox />
         </th>
         <th style="min-width: 16rem">Code</th>
-        <th pSortableColumn="name" style="min-width: 16rem">
-          Name
-          <p-sortIcon field="name" />
+        <th pSortableColumn="nome" style="min-width: 16rem">
+          Nome
+          <p-sortIcon field="nome" />
         </th>
         <th>Image</th>
-        <th pSortableColumn="price" style="min-width: 8rem">
-          Price
-          <p-sortIcon field="price" />
+        <th pSortableColumn="valor" style="min-width: 8rem">
+          Valor
+          <p-sortIcon field="valor" />
         </th>
-        <th pSortableColumn="category" style="min-width: 10rem">
-          Category
-          <p-sortIcon field="category" />
+        <th pSortableColumn="tipo" style="min-width: 10rem">
+          Tipo
+          <p-sortIcon field="tipo" />
         </th>
         <th pSortableColumn="rating" style="min-width: 12rem">
           Reviews
           <p-sortIcon field="rating" />
         </th>
-        <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
+        <th pSortableColumn="status" style="min-width: 12rem">
           Status
-          <p-sortIcon field="inventoryStatus" />
+          <p-sortIcon field="status" />
         </th>
         <th style="min-width: 12rem"></th>
       </tr>
     </ng-template>
-    <ng-template #body let-product>
+    <ng-template #body let-conta>
       <tr>
         <td style="width: 3rem">
-          <p-tableCheckbox [value]="product" />
+          <p-tableCheckbox [value]="contas" />
         </td>
-        <td style="min-width: 12rem">{{ product.code }}</td>
-        <td style="min-width: 16rem">{{ product.name }}</td>
+        <td style="min-width: 12rem">{{ conta._id }}</td>
+        <td style="min-width: 16rem">{{ conta.nome }}</td>
+        <td>NULL</td>
+        <td>{{ conta.valor | currency : "R$" }}</td>
+        <td>{{ conta.tipo }}</td>
         <td>
-          <img
-            [src]="
-              'https://primefaces.org/cdn/primeng/images/demo/product/' +
-              product.image
-            "
-            [alt]="product.name"
-            style="width: 64px"
-            class="rounded"
-          />
-        </td>
-        <td>{{ product.price | currency : "USD" }}</td>
-        <td>{{ product.category }}</td>
-        <td>
-          <p-rating [(ngModel)]="product.rating" [readonly]="true" />
+          <p-rating [(ngModel)]="conta.rating" [readonly]="true" />
         </td>
         <td>
-          <p-tag [value]="product.inventoryStatus" />
+          <p-tag [value]="conta.status" />
         </td>
         <td>
           <p-button
@@ -114,27 +104,27 @@
             class="mr-2"
             [rounded]="true"
             [outlined]="true"
-            (click)="editProduct(product)"
+            (click)="editProduct(conta)"
           />
           <p-button
             icon="pi pi-trash"
             severity="danger"
             [rounded]="true"
             [outlined]="true"
-            (click)="deleteProduct(product)"
+            (click)="deleteProduct(conta)"
           />
         </td>
       </tr>
     </ng-template>
     <ng-template #summary>
       <div class="flex items-center justify-between">
-        In total there are {{ products ? products.length : 0 }} products.
+        In total there are {{ contas ? contas.length : 0 }} products.
       </div>
     </ng-template>
   </p-table>
 
   <p-dialog
-    [(visible)]="productDialog"
+    [(visible)]="contaDialog"
     [style]="{ width: '450px' }"
     header="Product Details"
     [modal]="true"
@@ -144,24 +134,24 @@
         <img
           [src]="
             'https://primefaces.org/cdn/primeng/images/demo/product/' +
-            product.image
+            conta.image
           "
-          [alt]="product.image"
+          [alt]="conta.image"
           class="block m-auto pb-4"
-          *ngIf="product.image"
+          *ngIf="conta.image"
         />
         <div>
           <label for="name" class="block font-bold mb-3">Name</label>
           <input
             type="text"
             pInputText
-            id="name"
-            [(ngModel)]="product.name"
+            id="nome"
+            [(ngModel)]="conta.nome"
             required
             autofocus
             fluid
           />
-          <small class="text-red-500" *ngIf="submitted && !product.name"
+          <small class="text-red-500" *ngIf="submitted && !conta.nome"
             >Name is required.</small
           >
         </div>
@@ -172,7 +162,7 @@
           <textarea
             id="description"
             pTextarea
-            [(ngModel)]="product.description"
+            [(ngModel)]="conta.description"
             required
             rows="3"
             cols="20"
@@ -181,11 +171,9 @@
         </div>
 
         <div>
-          <label for="inventoryStatus" class="block font-bold mb-3"
-            >Inventory Status</label
-          >
+          <label for="status" class="block font-bold mb-3">Status</label>
           <p-select
-            [(ngModel)]="product.inventoryStatus"
+            [(ngModel)]="conta.inventoryStatus"
             inputId="inventoryStatus"
             [options]="statuses"
             optionLabel="label"
@@ -195,14 +183,14 @@
         </div>
 
         <div>
-          <span class="block font-bold mb-4">Category</span>
+          <span class="block font-bold mb-4">Tipo</span>
           <div class="grid grid-cols-12 gap-4">
             <div class="flex items-center gap-2 col-span-6">
               <p-radiobutton
                 id="category1"
                 name="category"
                 value="Accessories"
-                [(ngModel)]="product.category"
+                [(ngModel)]="conta.tipo"
               />
               <label for="category1">Accessories</label>
             </div>
@@ -211,7 +199,7 @@
                 id="category2"
                 name="category"
                 value="Clothing"
-                [(ngModel)]="product.category"
+                [(ngModel)]="conta.category"
               />
               <label for="category2">Clothing</label>
             </div>
@@ -220,7 +208,7 @@
                 id="category3"
                 name="category"
                 value="Electronics"
-                [(ngModel)]="product.category"
+                [(ngModel)]="conta.category"
               />
               <label for="category3">Electronics</label>
             </div>
@@ -229,7 +217,7 @@
                 id="category4"
                 name="category"
                 value="Fitness"
-                [(ngModel)]="product.category"
+                [(ngModel)]="conta.category"
               />
               <label for="category4">Fitness</label>
             </div>
@@ -241,7 +229,7 @@
             <label for="price" class="block font-bold mb-3">Price</label>
             <p-inputnumber
               id="price"
-              [(ngModel)]="product.price"
+              [(ngModel)]="conta.valor"
               mode="currency"
               currency="USD"
               locale="en-US"
@@ -250,7 +238,7 @@
           </div>
           <div class="col-span-6">
             <label for="quantity" class="block font-bold mb-3">Quantity</label>
-            <p-inputnumber id="quantity" [(ngModel)]="product.quantity" fluid />
+            <p-inputnumber id="quantity" [(ngModel)]="conta.quantity" fluid />
           </div>
         </div>
       </div>
