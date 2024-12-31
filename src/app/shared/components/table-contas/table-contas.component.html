@@ -1,3 +1,26 @@
+<!-- <div class="my-4 p-3 rounded-lg border-[1px] border-solid border-gray-300">
+  <div class="mb-6">
+    <div
+      class="border-[1px] border-solid border-gray-300 rounded-lg flex items-center gap-5 p-2"
+    >
+      <div
+        class="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-2 py-1 rounded-md text-white"
+      >
+        <i class="pi pi-plus" style="font-size: 0.8rem"></i>
+        <button class="text-sm" (click)="showModal()">New</button>
+      </div>
+      <div
+        class="flex items-center gap-2 bg-red-400 px-2 py-1 rounded-md text-white"
+      >
+        <i class="pi pi-trash" style="font-size: 0.8rem"></i>
+        <button class="text-sm">Delete</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <app-modal-adicionar></app-modal-adicionar>
+  </div>
+</div> -->
 <div class="card">
   <p-toast />
   <p-toolbar styleClass="mb-6">
@@ -40,7 +63,7 @@
   >
     <ng-template #caption>
       <div class="flex items-center justify-between">
-        <h5 class="m-0">Manage Products</h5>
+        <h5 class="m-0">Manage Contas</h5>
         <p-iconfield>
           <p-inputicon styleClass="pi pi-search" />
           <input
@@ -87,7 +110,9 @@
         <td style="width: 3rem">
           <p-tableCheckbox [value]="contas" />
         </td>
-        <td style="min-width: 12rem">{{ conta._id }}</td>
+        @for(conta of contas; track $index){
+        <td style="min-width: 12rem">{{ $index + 1 }}</td>
+        }
         <td style="min-width: 16rem">{{ conta.nome }}</td>
         <td>NULL</td>
         <td>{{ conta.valor | currency : "R$" }}</td>
@@ -118,7 +143,7 @@
     </ng-template>
     <ng-template #summary>
       <div class="flex items-center justify-between">
-        In total there are {{ contas ? contas.length : 0 }} products.
+        In total there are {{ contas ? contas.length : 0 }} contas.
       </div>
     </ng-template>
   </p-table>

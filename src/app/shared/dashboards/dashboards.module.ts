@@ -14,9 +14,10 @@ import { FluidModule } from 'primeng/fluid';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumber } from 'primeng/inputnumber';
+import { ProfileComponent } from './home/profile/profile.component';
 
 @NgModule({
-  declarations: [HomeComponent, ContasComponent, TransacoesComponent],
+  declarations: [HomeComponent, ContasComponent, TransacoesComponent, ProfileComponent],
   imports: [
     CommonModule,
     DashboardsRoutingModule,

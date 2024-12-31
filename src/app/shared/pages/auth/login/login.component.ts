@@ -24,14 +24,6 @@ export class LoginComponent {
     });
   }
 
-  showSuccess() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Message Content',
-    });
-  }
-
   show() {
     this.messageService.add({
       severity: 'error',
@@ -51,7 +43,6 @@ export class LoginComponent {
         const { token } = response.status;
         this.authService.saveToken(token);
         this.router.navigate(['dashboard/home']);
-        this.showSuccess();
       },
       error: (error) => {
         this.loading = false;

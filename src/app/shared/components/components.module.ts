@@ -4,7 +4,7 @@ import { SideBarComponent } from './side-bar/side-bar.component';
 import { HeaderComponent } from './header/header.component';
 import { ModalProfileComponent } from './modal-profile/modal-profile.component';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TableContasComponent } from './table-contas/table-contas.component';
+import { TableTransactionsComponent } from './table-transactions/table-transactions.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 import { Dialog } from 'primeng/dialog';
@@ -24,8 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputNumber } from 'primeng/inputnumber';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { ProductService } from '../services/productservice';
-import { TableTransacoesComponent } from './table-transacoes/table-transacoes.component';
+import { TableContasComponent } from './table-contas/table-contas.component';
 import { ModalAdicionarComponent } from './modal-adicionar/modal-adicionar.component';
 import { Select } from 'primeng/select';
 import { Toast } from 'primeng/toast';
@@ -36,7 +35,7 @@ import { Toast } from 'primeng/toast';
     HeaderComponent,
     ModalProfileComponent,
     TableContasComponent,
-    TableTransacoesComponent,
+    TableTransactionsComponent,
     ModalAdicionarComponent,
   ],
   imports: [
@@ -71,9 +70,9 @@ import { Toast } from 'primeng/toast';
     SideBarComponent,
     HeaderComponent,
     TableContasComponent,
-    TableTransacoesComponent,
+    TableTransactionsComponent,
     ModalAdicionarComponent,
   ],
-  providers: [MessageService, ConfirmationService, ProductService],
+  providers: [MessageService, ConfirmationService],
 })
 export class ComponentsModule {}

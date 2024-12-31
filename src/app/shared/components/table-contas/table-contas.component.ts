@@ -14,6 +14,7 @@ interface ExportColumn {
   title: string;
   dataKey: string;
 }
+
 @Component({
   selector: 'app-table-contas',
   templateUrl: './table-contas.component.html',
