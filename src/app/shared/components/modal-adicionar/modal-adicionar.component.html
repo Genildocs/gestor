@@ -16,7 +16,11 @@
         </div>
       </div>
     </div>
-    <form class="p-4 overflow-y-auto" [formGroup]="contaForm">
+    <form
+      class="p-4 overflow-y-auto"
+      [formGroup]="contaForm"
+      (ngSubmit)="onSubmit()"
+    >
       <div class="flex flex-col gap-6">
         <div class="flex flex-col">
           <label for="nome" class="text-sm">Nome da conta</label>
@@ -50,6 +54,16 @@
           />
         </div>
         <div class="flex flex-col">
+          <label for="vencimento" class="text-sm">Vencimento</label>
+          <input
+            type="date"
+            id="vencimento"
+            formControlName="vencimento"
+            placeholder="Vencimento da conta"
+            class="inputs !text-sm"
+          />
+        </div>
+        <div class="flex flex-col">
           <label class="text-sm mb-1">Selecione o tipo</label>
           <p-select
             formControlName="selectedTipo"
@@ -76,5 +90,6 @@
         </div>
       </div>
     </form>
+    <p-toast />
   </div>
 </div>

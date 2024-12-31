@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
-
+import { ContaService } from '../../services/conta.service';
+import { Contas } from '../../interfaces/contas';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ProductService } from '../../services/productservice';
 import { Product } from '../../domain/product';
@@ -25,7 +26,11 @@ export class TableContasComponent implements OnInit {
 
   products!: Product[];
 
+  contas!: Contas[];
+
   product!: Product;
+
+  conta!: Contas;
 
   selectedProducts!: Product[] | null;
 
@@ -43,6 +48,7 @@ export class TableContasComponent implements OnInit {
     private productService: ProductService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+    private contaService: ContaService,
     private cd: ChangeDetectorRef
   ) {}
 

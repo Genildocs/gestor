@@ -28,4 +28,12 @@ export class ContaService {
       },
     });
   }
+
+  getContas() {
+    return this.http.get(`${this.apiUrl}/contas`, {
+      headers: {
+        Authorization: `Bearer ${this.authService.getToken()}`,
+      },
+    });
+  }
 }

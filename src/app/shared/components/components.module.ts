@@ -28,6 +28,7 @@ import { ProductService } from '../services/productservice';
 import { TableTransacoesComponent } from './table-transacoes/table-transacoes.component';
 import { ModalAdicionarComponent } from './modal-adicionar/modal-adicionar.component';
 import { Select } from 'primeng/select';
+import { Toast } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { Select } from 'primeng/select';
     ButtonModule,
     Select,
     ReactiveFormsModule,
+    Toast,
   ],
   exports: [
     SideBarComponent,
