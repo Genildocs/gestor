@@ -129,21 +129,50 @@ export class TableContasComponent implements OnInit {
     this.submitted = false;
   }
 
-  deleteProduct(conta: Contas) {
+  deletaConta(contaId: string) {
+    this.contaService.deleteConta(contaId).subscribe({
+      next: (response: { contas: Contas[] }) => {
+        // Atualiza a lista local com base na resposta do backend.
+        this.contas =
+          response.contas || this.contas.filter((val) => val._id !== contaId);
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Erro ao deletar conta.',
+          life: 3000,
+        });
+        console.log('Error ao deletar conta:', error);
+      },
+      complete: () => {
+        console.log('Deletar conta concluído.');
+      },
+    });
+  }
+  deleteMetodo(conta: Contas) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + conta.nome + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
 
       accept: () => {
-        this.contas = this.contas.filter((val) => val._id !== conta._id);
-        this.conta = {};
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Product Deleted',
-          life: 3000,
-        });
+        if (conta._id) {
+          this.deletaConta(conta._id);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Product Deleted',
+            life: 3000,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Warning',
+            detail: 'Account ID is missing. Cannot delete.',
+            life: 3000,
+          });
+        }
       },
     });
   }
