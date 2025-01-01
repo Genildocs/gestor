@@ -73,7 +73,6 @@ export class TableContasComponent implements OnInit {
           this.id = contas[idx]['_id'];
         });
         this.cd.markForCheck();
-        console.log(this.selectedContas);
       },
     });
 
