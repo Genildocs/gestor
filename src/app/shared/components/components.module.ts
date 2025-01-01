@@ -28,6 +28,7 @@ import { TableContasComponent } from './table-contas/table-contas.component';
 import { ModalAdicionarComponent } from './modal-adicionar/modal-adicionar.component';
 import { Select } from 'primeng/select';
 import { Toast } from 'primeng/toast';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { Toast } from 'primeng/toast';
     ReactiveFormsModule,
     Toast,
     TitleCasePipe,
+    DatePickerModule,
   ],
   exports: [
     SideBarComponent,

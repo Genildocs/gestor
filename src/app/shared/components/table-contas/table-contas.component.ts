@@ -43,11 +43,15 @@ export class TableContasComponent implements OnInit {
 
   statuses!: any[];
 
+  tipo!: any[];
+
   @ViewChild('dt') dt!: Table;
 
   cols!: Column[];
 
   exportColumns!: ExportColumn[];
+
+  date: Date | undefined;
 
   constructor(
     private messageService: MessageService,
@@ -76,6 +80,11 @@ export class TableContasComponent implements OnInit {
     this.statuses = [
       { label: 'pago', value: 'pago' },
       { label: 'pendente', value: 'pendente' },
+    ];
+
+    this.tipo = [
+      { label: 'pagar', value: 'pagar' },
+      { label: 'receber', value: 'receber' },
     ];
 
     this.cols = [

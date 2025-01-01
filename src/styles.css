@@ -58,6 +58,10 @@
   .p-dialog {
     @apply !w-[350px] md:!w-[450px];
   }
+
+  .p-datepicker-panel {
+    @apply !-top-[315px];
+  }
 }
 
 /* Loader */

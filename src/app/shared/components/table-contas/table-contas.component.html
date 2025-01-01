@@ -199,15 +199,19 @@
           />
         </div>
         <div>
-          <label for="status" class="block font-bold mb-3">Tipo</label>
+          <label for="tipo" class="block font-bold mb-3">Tipo</label>
           <p-select
             [(ngModel)]="conta.tipo"
             inputId="inventoryStatus"
-            [options]="statuses"
+            [options]="tipo"
             optionLabel="label"
-            placeholder="Select a Status"
+            placeholder="Selecione o tipo"
             fluid
           />
+        </div>
+        <div>
+          <label for="data" class="block font-bold mb-3">Data</label>
+          <p-datepicker [(ngModel)]="date" />
         </div>
 
         <div>
@@ -258,9 +262,9 @@
 
         <div class="grid grid-cols-12 gap-4">
           <div class="col-span-6">
-            <label for="price" class="block font-bold mb-3">Price</label>
+            <label for="valor" class="block font-bold mb-3">Valor</label>
             <p-inputnumber
-              id="price"
+              id="valor"
               [(ngModel)]="conta.valor"
               mode="currency"
               currency="USD"
