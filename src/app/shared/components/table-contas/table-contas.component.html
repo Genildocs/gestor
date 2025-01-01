@@ -36,7 +36,7 @@
         label="Delete"
         icon="pi pi-trash"
         outlined
-        (onClick)="deleteSelectedProducts()"
+        (onClick)="deleteSelectedContas()"
         [disabled]="!selectedContas || !selectedContas.length"
       />
     </ng-template>
@@ -49,7 +49,7 @@
     [columns]="cols"
     [paginator]="true"
     [globalFilterFields]="[
-      'nome',
+      'Nome',
       'country.name',
       'representative.name',
       'status'
@@ -63,7 +63,7 @@
   >
     <ng-template #caption>
       <div class="flex items-center justify-between">
-        <h5 class="m-0">Manage Contas</h5>
+        <h5 class="m-0">Gerenciar Contas</h5>
         <p-iconfield>
           <p-inputicon styleClass="pi pi-search" />
           <input
@@ -80,7 +80,10 @@
         <th style="width: 3rem">
           <p-tableHeaderCheckbox />
         </th>
-        <th style="min-width: 16rem">Code</th>
+        <th pSortableColumn="id" style="min-width: 16rem">
+          ID
+          <p-sortIcon field="id" />
+        </th>
         <th pSortableColumn="nome" style="min-width: 16rem">
           Nome
           <p-sortIcon field="nome" />
@@ -94,12 +97,12 @@
           Tipo
           <p-sortIcon field="tipo" />
         </th>
-        <th pSortableColumn="rating" style="min-width: 12rem">
-          Reviews
-          <p-sortIcon field="rating" />
-        </th>
         <th pSortableColumn="status" style="min-width: 12rem">
           Status
+          <p-sortIcon field="status" />
+        </th>
+        <th pSortableColumn="status" style="min-width: 12rem">
+          Vencimento
           <p-sortIcon field="status" />
         </th>
         <th style="min-width: 12rem"></th>
@@ -110,19 +113,17 @@
         <td style="width: 3rem">
           <p-tableCheckbox [value]="contas" />
         </td>
-        @for(conta of contas; track $index){
-        <td style="min-width: 12rem">{{ $index + 1 }}</td>
-        }
+        <td style="min-width: 12rem">
+          {{ conta._id }}
+        </td>
         <td style="min-width: 16rem">{{ conta.nome }}</td>
         <td>NULL</td>
         <td>{{ conta.valor | currency : "R$" }}</td>
-        <td>{{ conta.tipo }}</td>
-        <td>
-          <p-rating [(ngModel)]="conta.rating" [readonly]="true" />
-        </td>
+        <td>{{ conta.tipo | titlecase }}</td>
         <td>
           <p-tag [value]="conta.status" />
         </td>
+        <td>{{ conta.vencimento | date : "dd/MM/yyyy" }}</td>
         <td>
           <p-button
             icon="pi pi-pencil"
@@ -151,20 +152,11 @@
   <p-dialog
     [(visible)]="contaDialog"
     [style]="{ width: '450px' }"
-    header="Product Details"
+    header="Adicionar Conta"
     [modal]="true"
   >
     <ng-template #content>
       <div class="flex flex-col gap-6">
-        <img
-          [src]="
-            'https://primefaces.org/cdn/primeng/images/demo/product/' +
-            conta.image
-          "
-          [alt]="conta.image"
-          class="block m-auto pb-4"
-          *ngIf="conta.image"
-        />
         <div>
           <label for="name" class="block font-bold mb-3">Name</label>
           <input
@@ -206,9 +198,20 @@
             fluid
           />
         </div>
+        <div>
+          <label for="status" class="block font-bold mb-3">Tipo</label>
+          <p-select
+            [(ngModel)]="conta.tipo"
+            inputId="inventoryStatus"
+            [options]="statuses"
+            optionLabel="label"
+            placeholder="Select a Status"
+            fluid
+          />
+        </div>
 
         <div>
-          <span class="block font-bold mb-4">Tipo</span>
+          <span class="block font-bold mb-4">Setores</span>
           <div class="grid grid-cols-12 gap-4">
             <div class="flex items-center gap-2 col-span-6">
               <p-radiobutton
@@ -216,6 +219,7 @@
                 name="category"
                 value="Accessories"
                 [(ngModel)]="conta.tipo"
+                disabled="true"
               />
               <label for="category1">Accessories</label>
             </div>
@@ -225,6 +229,7 @@
                 name="category"
                 value="Clothing"
                 [(ngModel)]="conta.category"
+                disabled="true"
               />
               <label for="category2">Clothing</label>
             </div>
@@ -234,6 +239,7 @@
                 name="category"
                 value="Electronics"
                 [(ngModel)]="conta.category"
+                disabled="true"
               />
               <label for="category3">Electronics</label>
             </div>
@@ -243,6 +249,7 @@
                 name="category"
                 value="Fitness"
                 [(ngModel)]="conta.category"
+                disabled="true"
               />
               <label for="category4">Fitness</label>
             </div>
@@ -263,7 +270,12 @@
           </div>
           <div class="col-span-6">
             <label for="quantity" class="block font-bold mb-3">Quantity</label>
-            <p-inputnumber id="quantity" [(ngModel)]="conta.quantity" fluid />
+            <p-inputnumber
+              id="quantity"
+              [(ngModel)]="conta.quantity"
+              fluid
+              [disabled]="true"
+            />
           </div>
         </div>
       </div>

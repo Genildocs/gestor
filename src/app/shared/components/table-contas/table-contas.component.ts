@@ -1,4 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { Table } from 'primeng/table';
 import { ContaService } from '../../services/conta.service';
 import { Contas } from '../../interfaces/contas';
@@ -23,13 +31,9 @@ interface ExportColumn {
 export class TableContasComponent implements OnInit {
   contaDialog: boolean = false;
 
-  // products!: Product[];
-
   contas!: Contas[];
 
   id!: string | undefined;
-
-  // product!: Product;
 
   conta!: Contas;
 
@@ -52,10 +56,6 @@ export class TableContasComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) {}
 
-  exportCSV() {
-    this.dt.exportCSV();
-  }
-
   ngOnInit(): void {
     this.buscaContas();
   }
@@ -68,12 +68,14 @@ export class TableContasComponent implements OnInit {
           this.conta = conta;
           this.id = contas[idx]['_id'];
         });
+        this.cd.markForCheck();
+        console.log(this.selectedContas);
       },
     });
 
     this.statuses = [
-      { label: 'PAGO', value: 'PAGO' },
-      { label: 'PENDENTE', value: 'PENDENTE' },
+      { label: 'pago', value: 'pago' },
+      { label: 'pendente', value: 'pendente' },
     ];
 
     this.cols = [
@@ -101,15 +103,16 @@ export class TableContasComponent implements OnInit {
     this.contaDialog = true;
   }
 
-  deleteSelectedProducts() {
+  deleteSelectedContas() {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete the selected products?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.contas = this.contas.filter(
-          (val) => !this.selectedContas?.includes(val)
-        );
+        this.contas = this.contas.filter((val) => {
+          !this.selectedContas?.includes(val);
+        });
+
         this.selectedContas = null;
         this.messageService.add({
           severity: 'success',
@@ -131,8 +134,9 @@ export class TableContasComponent implements OnInit {
       message: 'Are you sure you want to delete ' + conta.nome + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
+
       accept: () => {
-        this.contas = this.contas.filter((val) => val.id !== conta.id);
+        this.contas = this.contas.filter((val) => val._id !== conta._id);
         this.conta = {};
         this.messageService.add({
           severity: 'success',
@@ -168,9 +172,9 @@ export class TableContasComponent implements OnInit {
 
   getSeverity(status: string) {
     switch (status) {
-      case 'PAGO':
+      case 'pago':
         return 'success';
-      case 'PENDENTE':
+      case 'pendente':
         return 'danger';
       default:
         return 'contrast';
@@ -179,6 +183,7 @@ export class TableContasComponent implements OnInit {
 
   saveProduct() {
     this.submitted = true;
+    console.log(this.conta, this.submitted);
     if (this.conta.nome?.trim()) {
       if (this.conta.id) {
         this.contas[this.findIndexById(this.conta.id)] = this.conta;
@@ -190,7 +195,6 @@ export class TableContasComponent implements OnInit {
         });
       } else {
         this.conta.id = this.createId();
-        this.conta.image = 'product-placeholder.svg';
         this.contas.push(this.conta);
         this.messageService.add({
           severity: 'success',

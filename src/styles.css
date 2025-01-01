@@ -54,6 +54,10 @@
   .p-toast {
     @apply !w-[350px];
   }
+
+  .p-dialog {
+    @apply !w-[350px] md:!w-[450px];
+  }
 }
 
 /* Loader */
