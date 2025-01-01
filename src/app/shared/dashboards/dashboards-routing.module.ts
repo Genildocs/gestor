@@ -22,6 +22,34 @@ const routes: Routes = [
         path: 'profile',
         component: ProfileComponent,
       },
+      {
+        path: 'produtos',
+        loadChildren: () =>
+          import('./home/produtos/produtos-routing.module').then(
+            (m) => m.ProdutosRoutingModule
+          ),
+      },
+      {
+        path: 'entrada',
+        loadChildren: () =>
+          import('./home/entrada/entrada-routing.module').then(
+            (m) => m.EntradaRoutingModule
+          ),
+      },
+      {
+        path: 'saida',
+        loadChildren: () =>
+          import('./home/saida/saida-routing.module').then(
+            (m) => m.SaidaRoutingModule
+          ),
+      },
+      {
+        path: 'clientes',
+        loadChildren: () =>
+          import('./home/clientes/clientes-routing.module').then(
+            (m) => m.ClientesRoutingModule
+          ),
+      },
     ],
   },
 ];
