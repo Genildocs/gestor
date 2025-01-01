@@ -69,7 +69,7 @@
           <input
             pInputText
             type="text"
-            (input)="dt.filterGlobal($event.target, 'contains')"
+            (input)="onGlobalFilter(dt, $event)"
             placeholder="Search..."
           />
         </p-iconfield>

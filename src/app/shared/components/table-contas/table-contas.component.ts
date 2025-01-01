@@ -246,4 +246,8 @@ export class TableContasComponent implements OnInit {
       this.conta = {};
     }
   }
+
+  onGlobalFilter(table: Table, event: Event) {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
 }
