@@ -74,6 +74,9 @@ export class TableContasComponent implements OnInit {
         });
         this.cd.markForCheck();
       },
+      error: (error) => {
+        console.log('Error ao buscar contas:', error);
+      },
     });
 
     this.statuses = [
@@ -87,11 +90,12 @@ export class TableContasComponent implements OnInit {
     ];
 
     this.cols = [
-      { field: 'code', header: 'Code', customExportHeader: 'Conta Code' },
+      { field: '_id', header: 'ID', customExportHeader: 'Conta ID' },
       { field: 'nome', header: 'Nome' },
       { field: 'image', header: 'Image' },
       { field: 'valor', header: 'Valor' },
       { field: 'tipo', header: 'Tipo' },
+      { field: 'vencimento', header: 'Vencimento' },
     ];
 
     this.exportColumns = this.cols.map((col) => ({
@@ -111,36 +115,11 @@ export class TableContasComponent implements OnInit {
     this.contaDialog = true;
   }
 
-  deleteSelectedContas() {
-    this.confirmationService.confirm({
-      message: 'Are you sure you want to delete the selected products?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.contas = this.contas.filter((val) => {
-          !this.selectedContas?.includes(val);
-        });
-
-        this.selectedContas = null;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Products Deleted',
-          life: 3000,
-        });
-      },
-    });
-  }
-
-  hideDialog() {
-    this.contaDialog = false;
-    this.submitted = false;
-  }
-
   deletaConta(contaId: string) {
     this.contaService.deleteConta(contaId).subscribe({
       next: (response: { contas: Contas[] }) => {
         // Atualiza a lista local com base na resposta do backend.
+
         this.contas =
           response.contas || this.contas.filter((val) => val._id !== contaId);
       },
@@ -158,6 +137,37 @@ export class TableContasComponent implements OnInit {
       },
     });
   }
+
+  deleteSelectedContas() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected products?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        //Temporario, usar uma requisição post para deletar varias contas. Criar nova rota no backend
+        const contaId = this.selectedContas![0]._id;
+        if (contaId) {
+          this.deletaConta(contaId);
+        }
+        // this.contas = this.contas.filter(
+        //   (val) => !this.selectedContas?.includes(val)
+        // );
+        // this.selectedContas = null;
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Products Deleted',
+          life: 3000,
+        });
+      },
+    });
+  }
+
+  hideDialog() {
+    this.contaDialog = false;
+    this.submitted = false;
+  }
+
   deleteMetodo(conta: Contas) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + conta.nome + '?',
@@ -170,7 +180,7 @@ export class TableContasComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Successful',
-            detail: 'Product Deleted',
+            detail: 'Conta Deleted',
             life: 3000,
           });
         } else {
@@ -213,6 +223,10 @@ export class TableContasComponent implements OnInit {
         return 'success';
       case 'pendente':
         return 'danger';
+      case 'receber':
+        return 'success';
+      case 'pagar':
+        return 'danger';
       default:
         return 'contrast';
     }
@@ -227,7 +241,7 @@ export class TableContasComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Product Updated',
+          detail: 'Conta Updated',
           life: 3000,
         });
       } else {
@@ -236,7 +250,7 @@ export class TableContasComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Product Created',
+          detail: 'Conta Created',
           life: 3000,
         });
       }

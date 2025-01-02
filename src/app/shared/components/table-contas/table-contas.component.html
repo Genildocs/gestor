@@ -49,15 +49,17 @@
     [columns]="cols"
     [paginator]="true"
     [globalFilterFields]="[
-      'Nome',
-      'country.name',
-      'representative.name',
-      'status'
+      '_id',
+      'nome',
+      'valor',
+      'vencimento',
+      'status',
+      'tipo'
     ]"
     [tableStyle]="{ 'min-width': '75rem' }"
     [(selection)]="selectedContas"
     [rowHover]="true"
-    dataKey="id"
+    dataKey="_id"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
   >
@@ -101,9 +103,9 @@
           Status
           <p-sortIcon field="status" />
         </th>
-        <th pSortableColumn="status" style="min-width: 12rem">
+        <th pSortableColumn="vencimento" style="min-width: 12rem">
           Vencimento
-          <p-sortIcon field="status" />
+          <p-sortIcon field="vencimento" />
         </th>
         <th style="min-width: 12rem"></th>
       </tr>
@@ -111,7 +113,7 @@
     <ng-template #body let-conta>
       <tr>
         <td style="width: 3rem">
-          <p-tableCheckbox [value]="contas" />
+          <p-tableCheckbox [value]="conta" />
         </td>
         <td style="min-width: 12rem">
           {{ conta._id }}
@@ -119,9 +121,17 @@
         <td style="min-width: 16rem">{{ conta.nome }}</td>
         <td>NULL</td>
         <td>{{ conta.valor | currency : "R$" }}</td>
-        <td>{{ conta.tipo | titlecase }}</td>
         <td>
-          <p-tag [value]="conta.status" />
+          <p-tag
+            [value]="conta.tipo | titlecase"
+            [severity]="getSeverity(conta.tipo)"
+          />
+        </td>
+        <td>
+          <p-tag
+            [value]="conta.status | titlecase"
+            [severity]="getSeverity(conta.status)"
+          />
         </td>
         <td>{{ conta.vencimento | date : "dd/MM/yyyy" }}</td>
         <td>
@@ -190,11 +200,11 @@
         <div>
           <label for="status" class="block font-bold mb-3">Status</label>
           <p-select
-            [(ngModel)]="conta.inventoryStatus"
-            inputId="inventoryStatus"
+            [(ngModel)]="conta.status"
+            inputId="status"
             [options]="statuses"
             optionLabel="label"
-            placeholder="Select a Status"
+            placeholder="Selecione o Status"
             fluid
           />
         </div>
@@ -202,7 +212,7 @@
           <label for="tipo" class="block font-bold mb-3">Tipo</label>
           <p-select
             [(ngModel)]="conta.tipo"
-            inputId="inventoryStatus"
+            inputId="tipo"
             [options]="tipo"
             optionLabel="label"
             placeholder="Selecione o tipo"
