@@ -62,6 +62,7 @@ export class TableContasComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscaContas();
+    console.log(this.conta);
   }
   buscaContas() {
     this.contaService.getContas().subscribe({
