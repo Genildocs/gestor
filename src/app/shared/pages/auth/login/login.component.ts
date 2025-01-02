@@ -12,6 +12,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   loading: boolean = false;
   isValidFormSubmitted = false;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -39,7 +40,6 @@ export class LoginComponent {
     this.authService.loginUser(formData).subscribe({
       next: (response: any) => {
         this.loading = false;
-
         const { token } = response.status;
         this.authService.saveToken(token);
         this.router.navigate(['dashboard/home']);

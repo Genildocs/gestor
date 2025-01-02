@@ -62,6 +62,14 @@
   .p-datepicker-panel {
     @apply !-top-[315px];
   }
+
+  .p-password {
+    @apply !block;
+  }
+
+  .p-password-input {
+    @apply !w-full;
+  }
 }
 
 /* Loader */

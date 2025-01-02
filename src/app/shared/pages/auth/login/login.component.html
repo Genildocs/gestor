@@ -16,12 +16,19 @@
             <div>
               <div class="flex flex-col">
                 <label for="email">Email</label>
-                <input
+                <!-- <input
                   type="email"
                   id="email"
                   placeholder="Informe seu email"
                   formControlName="email"
                   class="inputs"
+                /> -->
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="Informe seu email"
+                  pInputText
+                  formControlName="email"
                 />
               </div>
               <div class="h-5 flex items-center">
@@ -33,15 +40,21 @@
             <div>
               <div class="flex flex-col">
                 <label for="password">Password</label>
-                <input
+                <!-- <input
                   type="password"
                   id="password"
                   placeholder="Digite uma senha"
                   formControlName="password"
                   class="inputs"
+                /> -->
+                <p-password
+                  placeholder="Digite uma senha"
+                  formControlName="password"
+                  id="password"
+                  [toggleMask]="true"
                 />
               </div>
-              <div class="h-5 flex items-center">
+              <div class="h-6 flex items-center">
                 <p class="text-xs text-red-500" *ngIf="isValidFormSubmitted">
                   Campo obrigatório
                 </p>
@@ -59,8 +72,10 @@
         </div>
       </div>
     </div>
-    <div class="flex items-center justify-center" *ngIf="loading">
-      <div class="loader"></div>
+    <div class="h-5">
+      <div class="flex items-center justify-center" *ngIf="loading">
+        <div class="loader"></div>
+      </div>
     </div>
     <div>
       <p-toast />
