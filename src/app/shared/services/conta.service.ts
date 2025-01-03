@@ -23,7 +23,7 @@ export class ContaService {
     });
   }
 
-  createConta(data: Contas[]) {
+  createConta(data: any) {
     return this.http.post(`${this.apiUrl}/contas`, data, {
       headers: {
         Authorization: `Bearer ${this.authService.getToken()}`,
@@ -42,6 +42,18 @@ export class ContaService {
   deleteConta(id: string): Observable<{ contas: Contas[] }> {
     return this.http.delete<{ contas: Contas[] }>(
       `${this.apiUrl}/contas/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${this.authService.getToken()}`,
+        },
+      }
+    );
+  }
+
+  updateConta(id: string, data: any): Observable<{ contas: Contas[] }> {
+    return this.http.put<{ contas: Contas[] }>(
+      `${this.apiUrl}/contas/${id}`,
+      data,
       {
         headers: {
           Authorization: `Bearer ${this.authService.getToken()}`,

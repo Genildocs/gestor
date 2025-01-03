@@ -3,10 +3,10 @@ export interface Contas {
   _id?: string;
   nome?: string;
   description?: string;
-  valor?: string;
-  vencimento?: string;
+  valor?: number;
+  vencimento?: Date;
   status?: string;
-  tipo?: Tipo;
+  tipo?: string;
   image?: string;
   inventoryStatus?: string;
   category?: string;
@@ -14,11 +14,13 @@ export interface Contas {
 }
 
 export interface Status {
-  pendente?: string;
-  pago?: string;
+  label?: string;
+  value?: string;
 }
 
 export interface Tipo {
-  nome: string;
-  code: string;
+  label?: string;
+  value?: string;
+  nome?: string;
+  code?: string;
 }

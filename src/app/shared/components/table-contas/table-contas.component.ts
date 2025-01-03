@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Table } from 'primeng/table';
 import { ContaService } from '../../services/conta.service';
-import { Contas } from '../../interfaces/contas';
+import { Contas, Tipo } from '../../interfaces/contas';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 interface Column {
@@ -18,6 +18,7 @@ interface Column {
   customExportHeader?: string;
 }
 
+//exportação de dados
 interface ExportColumn {
   title: string;
   dataKey: string;
@@ -43,7 +44,7 @@ export class TableContasComponent implements OnInit {
 
   statuses!: any[];
 
-  tipo!: any[];
+  tipo!: Tipo[];
 
   @ViewChild('dt') dt!: Table;
 
@@ -51,7 +52,7 @@ export class TableContasComponent implements OnInit {
 
   exportColumns!: ExportColumn[];
 
-  date: Date | undefined;
+  vencimento: Date | undefined;
 
   constructor(
     private messageService: MessageService,
@@ -62,17 +63,16 @@ export class TableContasComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscaContas();
-    console.log(this.conta);
   }
   buscaContas() {
     this.contaService.getContas().subscribe({
       next: (data: any) => {
         const contas: Contas[] = data.contas;
         this.contas = contas;
-        this.contas.forEach((conta, idx) => {
-          this.conta = conta;
-          this.id = contas[idx]['_id'];
+        this.contas.map((conta, idx) => {
+          return (this.conta = conta);
         });
+
         this.cd.markForCheck();
       },
       error: (error) => {
@@ -91,22 +91,24 @@ export class TableContasComponent implements OnInit {
     ];
 
     this.cols = [
-      { field: '_id', header: 'ID', customExportHeader: 'Conta ID' },
+      { field: 'id', header: 'ID' },
       { field: 'nome', header: 'Nome' },
       { field: 'image', header: 'Image' },
       { field: 'valor', header: 'Valor' },
       { field: 'tipo', header: 'Tipo' },
       { field: 'vencimento', header: 'Vencimento' },
     ];
-
-    this.exportColumns = this.cols.map((col) => ({
-      title: col.header,
-      dataKey: col.field,
-    }));
   }
 
   openNew() {
-    this.conta = {};
+    this.conta = {
+      id: '',
+      nome: '',
+      description: '',
+      vencimento: new Date(),
+      status: '',
+      tipo: '',
+    };
     this.submitted = false;
     this.contaDialog = true;
   }
@@ -150,10 +152,6 @@ export class TableContasComponent implements OnInit {
         if (contaId) {
           this.deletaConta(contaId);
         }
-        // this.contas = this.contas.filter(
-        //   (val) => !this.selectedContas?.includes(val)
-        // );
-        // this.selectedContas = null;
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
@@ -199,7 +197,7 @@ export class TableContasComponent implements OnInit {
   findIndexById(id: string): number {
     let index = -1;
     for (let i = 0; i < this.contas.length; i++) {
-      if (this.contas[i].id === id) {
+      if (this.contas[i]._id === id) {
         index = i;
         break;
       }
@@ -233,33 +231,89 @@ export class TableContasComponent implements OnInit {
     }
   }
 
+  updateContas(id: any, data: any) {
+    this.contaService.updateConta(id, data).subscribe({
+      next: (response) => {
+        const index = this.findIndexById(id);
+        if (index !== -1) {
+          this.contas[index] = { ...data };
+        }
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Conta Updated Successfully',
+          life: 3000,
+        });
+        console.log('Conta atualizada:', id, response, data);
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error ao atualizar conta.',
+          life: 3000,
+        });
+        console.log('Error ao atualizar conta.', error);
+      },
+      complete: () => {
+        console.log('Atualizar conta concluído.');
+      },
+    });
+  }
+
+  criarNovaConta(conta: any) {
+    this.contaService.createConta(conta).subscribe({
+      next: (response) => {
+        this.contas.push(conta);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'Conta Created Successfully',
+          life: 3000,
+        });
+        console.log('Nova conta criada:', response);
+      },
+      error: (error) => {
+        this.handleServiceError('Error ao criar conta.', error);
+      },
+      complete: () => {
+        console.log('Criação de conta concluída.');
+      },
+    });
+  }
   saveProduct() {
     this.submitted = true;
-    console.log(this.conta, this.submitted);
-    if (this.conta.nome?.trim()) {
-      if (this.conta.id) {
-        this.contas[this.findIndexById(this.conta.id)] = this.conta;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Conta Updated',
-          life: 3000,
-        });
-      } else {
-        this.conta.id = this.createId();
-        this.contas.push(this.conta);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Conta Created',
-          life: 3000,
-        });
-      }
 
-      this.contas = [...this.contas];
-      this.contaDialog = false;
-      this.conta = {};
+    if (!this.conta.nome?.trim()) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Validation Error',
+        detail: 'O campo Nome, Tipo, Valor e Vencimento é obrigatório.',
+        life: 3000,
+      });
+      return; // Evita continuar com dados inválidos.
     }
+
+    if (this.conta.id) {
+      // Atualizar conta existente
+      this.updateContas(this.conta._id, this.conta);
+    } else {
+      // Criar nova conta
+      this.criarNovaConta({ ...this.conta, id: this.createId() });
+    }
+    // Fecha o modal e reseta os dados da conta
+    this.contaDialog = false;
+    this.conta = {};
+  }
+  //Centraliza o tratamento de erros e mensagens, reduzindo duplicação.
+  private handleServiceError(message: string, error: any): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+      life: 3000,
+    });
+    console.error(message, error);
   }
 
   onGlobalFilter(table: Table, event: Event) {
