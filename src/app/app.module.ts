@@ -8,10 +8,16 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentsModule } from './shared/components/components.module';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, ComponentsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ComponentsModule,
+    NgApexchartsModule,
+  ],
   providers: [
     provideAnimationsAsync(),
     providePrimeNG({

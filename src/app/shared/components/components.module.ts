@@ -34,7 +34,8 @@ import { ModalAdicionarComponent } from './modal-adicionar/modal-adicionar.compo
 import { Select } from 'primeng/select';
 import { Toast } from 'primeng/toast';
 import { DatePickerModule } from 'primeng/datepicker';
-
+import { ChartContasComponent } from './chart-contas/chart-contas.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 @NgModule({
   declarations: [
     SideBarComponent,
@@ -43,6 +44,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     TableContasComponent,
     TableTransactionsComponent,
     ModalAdicionarComponent,
+    ChartContasComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +75,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     Toast,
     TitleCasePipe,
     DatePickerModule,
+    NgApexchartsModule,
   ],
   exports: [
     SideBarComponent,
@@ -80,6 +83,7 @@ import { DatePickerModule } from 'primeng/datepicker';
     TableContasComponent,
     TableTransactionsComponent,
     ModalAdicionarComponent,
+    ChartContasComponent,
   ],
   providers: [MessageService, ConfirmationService],
 })

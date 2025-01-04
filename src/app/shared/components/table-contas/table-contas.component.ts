@@ -69,7 +69,7 @@ export class TableContasComponent implements OnInit {
       next: (data: any) => {
         const contas: Contas[] = data.contas;
         this.contas = contas;
-        this.contas.map((conta, idx) => {
+        this.contas.map((conta) => {
           return (this.conta = conta);
         });
 
