@@ -50,7 +50,7 @@ export class ChartContasComponent implements OnInit {
         enabled: false,
       },
       stroke: {
-        curve: 'straight',
+        curve: 'stepline',
       },
       title: {
         text: 'Product Trends by Month',
