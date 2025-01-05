@@ -1,0 +1,14 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  height: calc(100% - 45px);
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  font-size: 14px;
+}
+
+.borders {
+  border: 1px solid red;
+}

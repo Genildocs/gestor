@@ -42,7 +42,7 @@ export class LoginComponent {
         this.loading = false;
         const { token } = response.status;
         this.authService.saveToken(token);
-        this.router.navigate(['dashboard/home']);
+        this.router.navigate(['dashboard/home/relatorio']);
       },
       error: (error) => {
         this.loading = false;
