@@ -185,6 +185,7 @@
               fluid
             />
           </div>
+
           <div>
             <label for="tipo" class="block font-bold mb-3">Tipo</label>
             <p-select
@@ -192,12 +193,14 @@
               inputId="tipo"
               [options]="tipo"
               placeholder="Selecione o tipo"
+              [disabled]="conta.id ? true : false"
               fluid
             />
             <small class="text-red-500" *ngIf="submitted && !conta.tipo"
               >Tipo is required.</small
             >
           </div>
+
           <div>
             <label for="vencimento" class="block font-bold mb-3"
               >Vencimento</label

@@ -4,10 +4,14 @@ import {
   ApexAxisChartSeries,
   ApexChart,
   ApexXAxis,
+  ApexYAxis,
   ApexDataLabels,
   ApexTitleSubtitle,
   ApexStroke,
   ApexGrid,
+  ApexPlotOptions,
+  ApexResponsive,
+  ApexFill,
 } from 'ng-apexcharts';
 import { ContaService } from '../../services/conta.service';
 import { addDays, format } from 'date-fns/fp';
@@ -20,6 +24,8 @@ export type ChartOptions = {
   grid: ApexGrid;
   stroke: ApexStroke;
   title: ApexTitleSubtitle;
+  yaxis: ApexYAxis;
+  plotOptions: ApexPlotOptions;
 };
 @Component({
   selector: 'app-chart-contas',
@@ -50,7 +56,9 @@ export class ChartContasComponent implements OnInit {
         enabled: false,
       },
       stroke: {
-        curve: 'stepline',
+        width: 5,
+        curve: 'straight',
+        dashArray: [0, 8, 5],
       },
       title: {
         text: 'Product Trends by Month',
@@ -82,46 +90,117 @@ export class ChartContasComponent implements OnInit {
     this.buscaContas();
   }
 
+  filterContas(contas: any, select?: string): any {
+    const filters = contas.filter(
+      (conta: any) => conta.status === select || conta.tipo === select
+    );
+
+    if (select) {
+      const valores = filters.map((conta: any) => conta.valor);
+      const vencimentos = filters.map(
+        (conta: any) => DateTime.fromISO(conta.vencimento).monthShort
+      );
+
+      const totalPorMes = vencimentos.reduce(
+        (acc: any, mes: any, index: any) => {
+          if (!acc[mes]) {
+            acc[mes] = 0;
+          }
+
+          acc[mes] += Math.round(valores[index]);
+
+          return acc;
+        },
+        {}
+      );
+      const meses = Object.keys(totalPorMes);
+      const valoreMensal: any = Object.values(totalPorMes);
+      return { meses, valoreMensal };
+    }
+  }
+
   buscaContas() {
     this.contaService.getContas().subscribe({
       next: (data: any) => {
         const contas: any[] = data.contas;
 
-        //filtra as contas pendentes
-        const constasFiltradas = contas.filter(
-          (conta) => conta.status === 'pendente'
+        //filtra as contas
+        const constasPendente = this.filterContas(contas, 'pendente');
+        const constasPagas = this.filterContas(contas, 'pago');
+        const constasReceber = this.filterContas(contas, 'receber');
+        const constaPagar = this.filterContas(contas, 'pagar');
+
+        // Filtra os meses
+        const meses = [
+          ...constasPendente.meses,
+          ...constasPagas.meses,
+          ...constasReceber.meses,
+          ...constaPagar.meses,
+        ];
+        let mesesUnicos = [...new Set(meses)].sort(
+          (a, b) =>
+            new Date(`01 ${a} 2020`).getMonth() -
+            new Date(`01 ${b} 2020`).getMonth()
         );
 
-        // Transformar os dados para o formato do gráfico
-        const valores = constasFiltradas.map((conta) => conta.valor);
-
-        const vencimentos = constasFiltradas.map(
-          (conta) => DateTime.fromISO(conta.vencimento).monthShort
+        // Mapeia os valores para cada mês
+        const valoresPendentesPorMes = new Map(
+          mesesUnicos.map((mes) => [mes, 0])
         );
+        constasPendente.meses.forEach((mes: any, index: any) => {
+          valoresPendentesPorMes.set(
+            mes,
+            valoresPendentesPorMes.get(mes)! +
+              constasPendente.valoreMensal[index]
+          );
+        });
 
-        const totalPorMes = vencimentos.reduce(
-          (acc: any, mes: any, index: any) => {
-            if (!acc[mes]) {
-              acc[mes] = 0; // Inicializa o valor do mês
-            }
+        const valoresPagosPorMes = new Map(mesesUnicos.map((mes) => [mes, 0]));
+        constasPagas.meses.forEach((mes: any, index: number) => {
+          valoresPagosPorMes.set(
+            mes,
+            valoresPagosPorMes.get(mes)! + constasPagas.valoreMensal[index]
+          );
+        });
 
-            acc[mes] += Math.round(valores[index]);
-            // Adiciona o valor ao mês correspondente
-            return acc;
-          },
-          {}
-        );
+        const valoresPagar = new Map(mesesUnicos.map((mes) => [mes, 0]));
+        constaPagar.meses.forEach((mes: any, index: number) => {
+          valoresPagar.set(
+            mes,
+            valoresPagar.get(mes)! + constaPagar.valoreMensal[index]
+          );
+        });
 
-        const valoresMensal: any = Object.values(totalPorMes);
-        const meses = Object.keys(totalPorMes);
+        const valoresReceber = new Map(mesesUnicos.map((mes) => [mes, 0]));
+        constasReceber.meses.forEach((mes: any, index: number) => {
+          valoresReceber.set(
+            mes,
+            valoresReceber.get(mes)! + constasReceber.valoreMensal[index]
+          );
+        });
 
-        // Atualizar opções do gráfico
         this.chartOptions = {
           ...this.chartOptions,
           series: [
             {
-              name: 'Contas a Pagar',
-              data: valoresMensal, // Adiciona os valores como dados
+              name: 'Contas pagas',
+              data: Array.from(valoresPagosPorMes.values()),
+              color: 'blue', // Adiciona os valores como dados
+            },
+            {
+              name: 'Contas Pendentes',
+              data: Array.from(valoresPendentesPorMes.values()),
+              color: 'gray', // Adiciona os valores como dados
+            },
+            {
+              name: 'Historico tipo pagar',
+              data: Array.from(valoresPagar.values()),
+              color: 'red',
+            },
+            {
+              name: 'Historico tipo receber',
+              data: Array.from(valoresReceber.values()),
+              color: 'green',
             },
           ],
           chart: {
@@ -143,11 +222,14 @@ export class ChartContasComponent implements OnInit {
               opacity: 0.35,
             },
           },
+
           dataLabels: {
             enabled: false,
           },
           stroke: {
+            width: 5,
             curve: 'straight',
+            dashArray: [0, 3, 3, 3],
           },
           title: {
             text: 'Total de valores por mês',
@@ -161,7 +243,12 @@ export class ChartContasComponent implements OnInit {
             },
           },
           xaxis: {
-            categories: meses, // Define os vencimentos como categorias
+            categories: mesesUnicos,
+          },
+          yaxis: {
+            title: {
+              text: 'R$ (valores)',
+            },
           },
         };
       },

@@ -50,6 +50,13 @@ const routes: Routes = [
             (m) => m.ClientesRoutingModule
           ),
       },
+      {
+        path: 'caixa',
+        loadChildren: () =>
+          import('./home/caixa/caixa-routing.module').then(
+            (m) => m.CaixaRoutingModule
+          ),
+      },
     ],
   },
 ];

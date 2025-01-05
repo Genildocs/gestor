@@ -299,6 +299,7 @@ export class TableContasComponent implements OnInit {
       this.updateContas(this.conta._id, this.conta);
     } else {
       // Criar nova conta
+
       this.criarNovaConta({ ...this.conta, id: this.createId() });
     }
     // Fecha o modal e reseta os dados da conta
