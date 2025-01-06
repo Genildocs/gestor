@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -10,7 +10,7 @@ import {
   ApexStroke,
   ApexGrid,
   ApexPlotOptions,
-  ApexResponsive,
+  ApexTooltip,
   ApexFill,
 } from 'ng-apexcharts';
 import { ContaService } from '../../services/conta.service';
@@ -26,6 +26,8 @@ export type ChartOptions = {
   title: ApexTitleSubtitle;
   yaxis: ApexYAxis;
   plotOptions: ApexPlotOptions;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
 };
 @Component({
   selector: 'app-chart-contas',
@@ -36,54 +38,9 @@ export class ChartContasComponent implements OnInit {
   @ViewChild('chartObj') chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
   dt: Date = DateTime.now().toJSDate();
+  @Input() contas: any[] = [];
   constructor(private contaService: ContaService) {
-    this.chartOptions = {
-      series: [
-        {
-          name: 'Desktops',
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-        },
-      ],
-      chart: {
-        height: 350,
-        type: 'line',
-        zoom: {
-          enabled: false,
-        },
-      },
-
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        width: 5,
-        curve: 'straight',
-        dashArray: [0, 8, 5],
-      },
-      title: {
-        text: 'Product Trends by Month',
-        align: 'left',
-      },
-      grid: {
-        row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-          opacity: 0.5,
-        },
-      },
-      xaxis: {
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-        ],
-      },
-    };
+    this.chartOptions = {};
   }
 
   ngOnInit(): void {
@@ -183,29 +140,29 @@ export class ChartContasComponent implements OnInit {
           ...this.chartOptions,
           series: [
             {
-              name: 'Valores Contas pagas R$',
+              name: 'Valor total de contas pagas',
               data: Array.from(valoresPagosPorMes.values()),
               color: 'blue', // Adiciona os valores como dados
             },
             {
-              name: 'Valores Contas Pendentes R$',
+              name: 'Valor total de contas pendentes',
               data: Array.from(valoresPendentesPorMes.values()),
               color: 'gray', // Adiciona os valores como dados
             },
             {
-              name: 'Valores Historico tipo pagar R$',
+              name: 'Total mensal a pagar',
               data: Array.from(valoresPagar.values()),
               color: 'red',
             },
             {
-              name: 'Valores Historico tipo receber R$',
+              name: 'Total mensal a receber',
               data: Array.from(valoresReceber.values()),
               color: 'green',
             },
           ],
           chart: {
             height: 350,
-            type: 'line',
+            type: 'bar',
             zoom: {
               enabled: false,
             },
@@ -222,20 +179,25 @@ export class ChartContasComponent implements OnInit {
               opacity: 0.35,
             },
           },
+          plotOptions: {
+            bar: {
+              horizontal: false,
+              columnWidth: '55%',
+            },
+          },
 
           dataLabels: {
             enabled: false,
           },
           stroke: {
-            width: 5,
-            curve: 'straight',
-            dashArray: [0, 3, 3, 3],
+            show: true,
+            width: 2,
+            colors: ['transparent'],
           },
           title: {
             text: 'Total de valores por mês',
             align: 'left',
           },
-
           grid: {
             row: {
               colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
@@ -245,9 +207,15 @@ export class ChartContasComponent implements OnInit {
           xaxis: {
             categories: mesesUnicos,
           },
+          fill: { opacity: 1 },
           yaxis: {
             title: {
               text: 'R$ (valores)',
+            },
+          },
+          tooltip: {
+            y: {
+              formatter: (val: any) => `R$ ${val}`,
             },
           },
         };

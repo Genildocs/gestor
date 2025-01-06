@@ -46,6 +46,8 @@ export class TableContasComponent implements OnInit {
 
   vencimento: Date | undefined;
 
+  loading: boolean = false;
+
   constructor(
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
@@ -91,7 +93,7 @@ export class TableContasComponent implements OnInit {
       { field: 'vencimento', header: 'Vencimento' },
     ];
   }
-
+  loadNodes(event: any) {}
   openNew() {
     this.conta = {
       id: '',
