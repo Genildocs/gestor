@@ -139,16 +139,16 @@ export class ChartContasComponent implements OnInit {
         this.chartOptions = {
           ...this.chartOptions,
           series: [
-            {
-              name: '$ Total de contas com status pago',
-              data: Array.from(valoresPagosPorMes.values()),
-              color: 'blue', // Adiciona os valores como dados
-            },
-            {
-              name: '$ Total de contas com status pendente',
-              data: Array.from(valoresPendentesPorMes.values()),
-              color: 'gray', // Adiciona os valores como dados
-            },
+            // {
+            //   name: '$ Total de contas com status pago',
+            //   data: Array.from(valoresPagosPorMes.values()),
+            //   color: 'blue', // Adiciona os valores como dados
+            // },
+            // {
+            //   name: '$ Total de contas com status pendente',
+            //   data: Array.from(valoresPendentesPorMes.values()),
+            //   color: 'gray', // Adiciona os valores como dados
+            // },
             {
               name: 'Total mensal a pagar',
               data: Array.from(valoresPagar.values()),
