@@ -183,22 +183,22 @@ export class ChartContasComponent implements OnInit {
           ...this.chartOptions,
           series: [
             {
-              name: 'Contas pagas',
+              name: 'Valores Contas pagas R$',
               data: Array.from(valoresPagosPorMes.values()),
               color: 'blue', // Adiciona os valores como dados
             },
             {
-              name: 'Contas Pendentes',
+              name: 'Valores Contas Pendentes R$',
               data: Array.from(valoresPendentesPorMes.values()),
               color: 'gray', // Adiciona os valores como dados
             },
             {
-              name: 'Historico tipo pagar',
+              name: 'Valores Historico tipo pagar R$',
               data: Array.from(valoresPagar.values()),
               color: 'red',
             },
             {
-              name: 'Historico tipo receber',
+              name: 'Valores Historico tipo receber R$',
               data: Array.from(valoresReceber.values()),
               color: 'green',
             },

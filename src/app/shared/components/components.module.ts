@@ -36,6 +36,8 @@ import { Toast } from 'primeng/toast';
 import { DatePickerModule } from 'primeng/datepicker';
 import { ChartContasComponent } from './chart-contas/chart-contas.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { CardValoresComponent } from './card-valores/card-valores.component';
+import { TableCaixaComponent } from './table-caixa/table-caixa.component';
 @NgModule({
   declarations: [
     SideBarComponent,
@@ -45,6 +47,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     TableTransactionsComponent,
     ModalAdicionarComponent,
     ChartContasComponent,
+    CardValoresComponent,
+    TableCaixaComponent,
   ],
   imports: [
     CommonModule,
@@ -84,6 +88,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     TableTransactionsComponent,
     ModalAdicionarComponent,
     ChartContasComponent,
+    CardValoresComponent,
+    TableCaixaComponent,
   ],
   providers: [MessageService, ConfirmationService],
 })

@@ -1,4 +1,8 @@
 <div>
+  <ng-content>
+    <app-card-valores [contas]="contas"></app-card-valores>
+    <app-chart-contas></app-chart-contas>
+  </ng-content>
   <div class="card">
     <p-toast />
     <p-toolbar styleClass="mb-6">
@@ -225,10 +229,10 @@
               >
             </div>
             <div class="col-span-6">
-              <label for="quantity" class="block font-bold mb-3"
-                >Quantity</label
+              <label for="parcelamento" class="block font-bold mb-3"
+                >Parcelamento</label
               >
-              <p-inputnumber id="quantity" fluid [disabled]="true" />
+              <p-inputnumber id="parcelamento" fluid [disabled]="true" />
             </div>
           </div>
         </div>
@@ -247,7 +251,4 @@
 
     <p-confirmDialog [style]="{ width: '450px' }" />
   </div>
-  <ng-content>
-    <app-chart-contas></app-chart-contas>
-  </ng-content>
 </div>
