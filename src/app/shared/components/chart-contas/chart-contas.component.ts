@@ -140,12 +140,12 @@ export class ChartContasComponent implements OnInit {
           ...this.chartOptions,
           series: [
             {
-              name: 'Valor total de contas pagas',
+              name: '$ Total de contas com status pago',
               data: Array.from(valoresPagosPorMes.values()),
               color: 'blue', // Adiciona os valores como dados
             },
             {
-              name: 'Valor total de contas pendentes',
+              name: '$ Total de contas com status pendente',
               data: Array.from(valoresPendentesPorMes.values()),
               color: 'gray', // Adiciona os valores como dados
             },
