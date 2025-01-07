@@ -14,7 +14,7 @@
 @layer base {
   html,
   body {
-    @apply font-nunito h-full;
+    @apply !font-nunito h-full;
   }
 }
 
@@ -34,12 +34,9 @@
   .system-grid {
     @apply grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4 text-white;
   }
-
-  .cards {
-  }
 }
 
-/* table primeng */
+/* primeng */
 
 @layer primeng {
   .p-button {
@@ -77,6 +74,11 @@
   .p-password-input {
     @apply !w-full;
   }
+}
+/* ApexCharts */
+
+#apexcharts-css {
+  font-family: inherit;
 }
 
 /* Loader */

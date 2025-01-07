@@ -156,11 +156,21 @@ export class ChartContasComponent implements OnInit {
       chart: {
         height: 350,
         type: 'bar',
+        fontFamily: 'inherit',
         zoom: {
           enabled: false,
         },
         animations: {
-          speed: 200,
+          enabled: true,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150,
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350,
+          },
         },
         dropShadow: {
           enabled: false,
@@ -195,11 +205,26 @@ export class ChartContasComponent implements OnInit {
       },
       xaxis: {
         categories: Array.from(meses.keys()),
+        labels: {
+          style: {
+            fontFamily: 'inherit',
+            fontSize: '12px',
+            fontWeight: '400',
+          },
+        },
       },
       fill: { opacity: 1 },
       yaxis: {
         title: {
           text: 'R$ (valores)',
+        },
+        labels: {
+          style: {
+            fontFamily: 'inherit',
+            fontSize: '12px',
+            fontWeight: '400',
+          },
+          formatter: (val: any) => `R$ ${val}`,
         },
       },
       tooltip: {

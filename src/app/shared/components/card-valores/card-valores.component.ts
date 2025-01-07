@@ -13,8 +13,9 @@ import {
 })
 export class CardValoresComponent implements OnInit, OnChanges {
   @Input() contas!: any[];
-  pagar: any;
-  receber: any;
+  pagar: number = 0;
+  receber: number = 0;
+  balancoTotal: number = 0;
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -28,8 +29,9 @@ export class CardValoresComponent implements OnInit, OnChanges {
           receber += parseFloat(this.contas[i].valor);
         }
       }
-      this.pagar = pagar.toFixed(2);
-      this.receber = receber.toFixed(2);
+      this.pagar = Number(pagar.toFixed(2));
+      this.receber = Number(receber.toFixed(2));
+      this.balancoTotal = this.receber - this.pagar;
     }
   }
 
