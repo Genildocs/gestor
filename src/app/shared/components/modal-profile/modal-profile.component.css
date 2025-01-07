@@ -14,10 +14,3 @@ ul li a {
 .listModalProfile:hover {
   background-color: #d4d1d1;
 }
-
-.positionModal {
-  position: absolute;
-  top: 65px;
-  left: 0;
-  transition: all 0.3s ease-in-out;
-}

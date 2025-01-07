@@ -1,17 +1,43 @@
 <div class="card-values">
   <h5>Balanço de contas</h5>
-  <div class="flex flex-col md:flex-row mt-5 gap-5">
-    <div class="md:flex-1 bg-green-500 p-1 px-3 rounded-md">
+  <div class="system-grid">
+    <div
+      class="bg-gradient-to-r from-green-500 to-green-400 p-5 bg-white rounded-[.375rem] relative"
+    >
       <span class="font-semibold">Receber Total</span>
       @if(receber > 0){
-      <h5 class="text-3xl mt-3">R$ {{ receber }}</h5>
+      <h5 class="text-3xl font-bold ltr:mr-3 rtl:ml-3 mt-3">
+        R$ {{ receber }}
+      </h5>
       }@else{
+      <h5 class="text-3xl font-bold ltr:mr-3 rtl:ml-3 mt-3">R$ 0</h5>
+      }
+    </div>
+    <div
+      class="bg-gradient-to-r from-red-500 to-red-400 p-5 bg-white rounded-[.375rem] relative"
+    >
+      <span class="font-semibold">Pagar Total</span>
+      @if(pagar > 0){
+      <h5 class="text-3xl font-bold ltr:mr-3 rtl:ml-3 mt-3">R$ {{ pagar }}</h5>
+      }@else {
+      <h5 class="text-3xl font-bold ltr:mr-3 rtl:ml-3 mt-3">R$ 0</h5>
+      }
+    </div>
+    <div
+      class="bg-gradient-to-r from-blue-500 to-blue-400 p-5 bg-white rounded-[.375rem] relative"
+    >
+      <span class="font-semibold">Pagar Total</span>
+      @if(pagar < 0){
+      <h5 class="text-3xl mt-3">R$ {{ pagar }}</h5>
+      }@else {
       <h5 class="text-3xl mt-3">R$ 0</h5>
       }
     </div>
-    <div class="md:flex-1 bg-red-400 p-1 px-3 rounded-md">
+    <div
+      class="bg-gradient-to-r from-blue-500 to-blue-400 p-5 bg-white rounded-[.375rem] relative"
+    >
       <span class="font-semibold">Pagar Total</span>
-      @if(pagar > 0){
+      @if(pagar < 0){
       <h5 class="text-3xl mt-3">R$ {{ pagar }}</h5>
       }@else {
       <h5 class="text-3xl mt-3">R$ 0</h5>

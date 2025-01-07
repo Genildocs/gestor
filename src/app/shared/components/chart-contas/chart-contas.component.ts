@@ -187,10 +187,6 @@ export class ChartContasComponent implements OnInit {
         width: 2,
         colors: ['transparent'],
       },
-      title: {
-        text: 'Total de valores por mês',
-        align: 'left',
-      },
       grid: {
         row: {
           colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
