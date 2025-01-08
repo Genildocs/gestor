@@ -38,6 +38,8 @@ import { ChartContasComponent } from './chart-contas/chart-contas.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CardValoresComponent } from './card-valores/card-valores.component';
 import { TableCaixaComponent } from './table-caixa/table-caixa.component';
+import { MenuModule } from 'headlessui-angular';
+import { ListboxModule } from 'headlessui-angular';
 @NgModule({
   declarations: [
     SideBarComponent,
@@ -80,6 +82,8 @@ import { TableCaixaComponent } from './table-caixa/table-caixa.component';
     TitleCasePipe,
     DatePickerModule,
     NgApexchartsModule,
+    MenuModule,
+    ListboxModule,
   ],
   exports: [
     SideBarComponent,

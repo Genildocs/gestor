@@ -18,6 +18,7 @@
             routerLink="relatorio"
             routerLinkActive="active"
             class="flex gap-2 items-center text-sm"
+            (click)="toggleSidebar()"
           >
             <i class="pi pi-home" style="font-size: 1rem"></i>
             <span>Home</span>
@@ -28,6 +29,7 @@
             routerLink="contas"
             routerLinkActive="active"
             class="flex gap-2 items-center text-sm"
+            (click)="toggleSidebar()"
           >
             <i class="pi pi-wallet" style="font-size: 1rem"></i>
             <span>Contas</span>
@@ -38,6 +40,7 @@
             routerLink="transacoes"
             routerLinkActive="active"
             class="flex gap-2 items-center text-sm"
+            (click)="toggleSidebar()"
           >
             <i class="pi pi-arrow-right-arrow-left" style="font-size: 1rem"></i>
             <span>Transações</span>
@@ -48,6 +51,7 @@
             class="flex gap-2 items-center text-sm"
             routerLink="produtos"
             routerLinkActive="active"
+            (click)="toggleSidebar()"
           >
             <i class="pi pi-barcode" style="font-size: 1rem"></i>
             <span>Produtos</span>
@@ -58,6 +62,7 @@
             class="flex gap-2 items-center text-sm"
             routerLink="caixa"
             routerLinkActive="active"
+            (click)="toggleSidebar()"
           >
             <i class="pi pi-box" style="font-size: 1rem"></i>
             <span>Caixa</span>
@@ -68,6 +73,7 @@
             class="flex gap-2 items-center text-sm"
             routerLink="calendar"
             routerLinkActive="active"
+            (click)="toggleSidebar()"
           >
             <i class="pi pi-calendar" style="font-size: 1rem"></i>
             <span>Calendário</span>
@@ -78,6 +84,7 @@
             class="flex gap-2 items-center text-sm"
             routerLink="clientes"
             routerLinkActive="active"
+            (click)="toggleSidebar()"
           >
             <i class="pi pi-users" style="font-size: 1rem"></i>
             <span>Clientes</span>
@@ -96,6 +103,7 @@
             class="flex gap-2 items-center text-sm"
             routerLink="profile"
             routerLinkActive="active"
+            (click)="toggleSidebar()"
           >
             <i class="pi pi-user-edit" style="font-size: 1rem"></i>
             <span>Profile</span>
