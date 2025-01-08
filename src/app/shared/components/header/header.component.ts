@@ -1,5 +1,5 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
-
+import { ManipularDomService } from '../../services/manipular-dom.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,12 +7,19 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 })
 export class HeaderComponent {
   isVisible: boolean = false;
+  currentState!: boolean;
+
+  constructor(private manipularDomService: ManipularDomService) {
+    this.manipularDomService.getStateSideBar().subscribe((state) => {
+      this.currentState = state;
+    });
+  }
 
   modalVisble() {
     this.isVisible = !this.isVisible;
   }
 
   toggleSidebar() {
-    document.getElementById('sidebar')?.classList.toggle('showSidebar');
+    this.manipularDomService.updateStateSideBar(!this.currentState);
   }
 }

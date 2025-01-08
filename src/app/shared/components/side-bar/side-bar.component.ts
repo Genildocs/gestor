@@ -7,27 +7,29 @@ import {
 } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { LayoutService } from '../../services/layout.service';
+import { ManipularDomService } from '../../services/manipular-dom.service';
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
   styleUrl: './side-bar.component.css',
 })
 export class SideBarComponent implements OnInit {
-  elementSidebar!: HTMLElement;
+  currentStateSideBar!: boolean;
   constructor(
     private authService: AuthService,
-    private layoutService: LayoutService,
-    private el: ElementRef
-  ) {}
+    private manipularDomService: ManipularDomService
+  ) {
+    this.manipularDomService.getStateSideBar().subscribe((state) => {
+      this.currentStateSideBar = state;
+    });
+  }
   logout() {
     this.authService.logoutUser();
   }
 
-  ngOnInit(): void {
-    this.elementSidebar = this.el.nativeElement.querySelector('#sidebar');
-  }
+  ngOnInit(): void {}
 
   toggleSidebar() {
-    this.layoutService.toggleSidebar(this.elementSidebar);
+    this.manipularDomService.updateStateSideBar(!this.currentStateSideBar);
   }
 }
