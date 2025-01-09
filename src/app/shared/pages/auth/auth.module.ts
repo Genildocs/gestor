@@ -14,6 +14,7 @@ import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
+
 @NgModule({
   declarations: [LoginComponent, SignupComponent],
   imports: [
@@ -31,5 +32,6 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
   ],
   providers: [MessageService],
+  exports: [LoginComponent, SignupComponent],
 })
 export class AuthModule {}

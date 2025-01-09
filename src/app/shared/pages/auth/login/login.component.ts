@@ -29,7 +29,7 @@ export class LoginComponent {
     this.messageService.add({
       severity: 'error',
       summary: 'Error de login',
-      detail: 'Usuario ou senha inválidos',
+      detail: 'Email ou senha inválidos',
     });
   }
 
@@ -42,7 +42,7 @@ export class LoginComponent {
         this.loading = false;
         const { token } = response.status;
         this.authService.saveToken(token);
-        this.router.navigate(['dashboard/home/relatorio']);
+        this.router.navigate(['dashboard/home']);
       },
       error: (error) => {
         this.loading = false;

@@ -1,15 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContasComponent } from './home/contas/contas.component';
+import { DashboardLayoutComponent } from '../components/dashboard-layout/dashboard-layout.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './home/profile/profile.component';
-import { TransacoesComponent } from './home/transacoes/transacoes.component';
+import { TransacoesComponent } from './transacoes/transacoes.component';
+import { ContasComponent } from './contas/contas.component';
 
 const routes: Routes = [
   {
-    path: 'home',
-    component: HomeComponent,
+    path: 'dashboard',
+    component: DashboardLayoutComponent,
     children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full',
+      },
+      {
+        path: 'home',
+        component: HomeComponent,
+      },
       {
         path: 'contas',
         component: ContasComponent,
@@ -18,14 +27,11 @@ const routes: Routes = [
         path: 'transacoes',
         component: TransacoesComponent,
       },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-      },
+
       {
         path: 'produtos',
         loadChildren: () =>
-          import('./home/produtos/produtos-routing.module').then(
+          import('./produtos/produtos-routing.module').then(
             (m) => m.ProdutosRoutingModule
           ),
       },
@@ -33,29 +39,31 @@ const routes: Routes = [
       {
         path: 'clientes',
         loadChildren: () =>
-          import('./home/clientes/clientes-routing.module').then(
+          import('./clientes/clientes-routing.module').then(
             (m) => m.ClientesRoutingModule
           ),
       },
-      {
-        path: 'caixa',
-        loadChildren: () =>
-          import('./home/caixa/caixa-routing.module').then(
-            (m) => m.CaixaRoutingModule
-          ),
-      },
+
       {
         path: 'calendar',
         loadChildren: () =>
-          import('./home/calendar/calendar-routing.module').then(
+          import('./calendar/calendar-routing.module').then(
             (m) => m.CalendarRoutingModule
           ),
       },
       {
-        path: 'relatorio',
+        path: 'profile',
         loadChildren: () =>
-          import('./home/relatorio/relatorio-routing.module').then(
-            (m) => m.RelatorioRoutingModule
+          import('./profile/profile-routing.module').then(
+            (m) => m.ProfileRoutingModule
+          ),
+      },
+
+      {
+        path: 'caixa',
+        loadChildren: () =>
+          import('./caixa/caixa-routing.module').then(
+            (m) => m.CaixaRoutingModule
           ),
       },
     ],

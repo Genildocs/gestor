@@ -6,7 +6,6 @@ import {
   Output,
 } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { LayoutService } from '../../services/layout.service';
 import { ManipularDomService } from '../../services/manipular-dom.service';
 @Component({
   selector: 'app-side-bar',

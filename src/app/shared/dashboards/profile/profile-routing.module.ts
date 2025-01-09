@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RelatorioComponent } from './relatorio.component';
+import { ProfileComponent } from './profile.component';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
       {
         path: '',
-        component: RelatorioComponent,
+        component: ProfileComponent,
       },
     ]),
   ],
   exports: [RouterModule],
 })
-export class RelatorioRoutingModule {}
+export class ProfileRoutingModule {}

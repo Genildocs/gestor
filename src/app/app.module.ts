@@ -9,7 +9,8 @@ import Aura from '@primeng/themes/aura';
 import { provideHttpClient } from '@angular/common/http';
 import { ComponentsModule } from './shared/components/components.module';
 import { NgApexchartsModule } from 'ng-apexcharts';
-
+import { AuthModule } from './shared/pages/auth/auth.module';
+import { DashboardsModule } from './shared/dashboards/dashboards.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -17,6 +18,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     AppRoutingModule,
     ComponentsModule,
     NgApexchartsModule,
+    AuthModule,
+    DashboardsModule,
   ],
   providers: [
     provideAnimationsAsync(),

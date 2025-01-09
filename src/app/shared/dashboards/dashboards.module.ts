@@ -9,22 +9,18 @@ import { FluidModule } from 'primeng/fluid';
 import { InputNumber } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ComponentsModule } from '../components/components.module';
+import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardsRoutingModule } from './dashboards-routing.module';
-import { CalendarComponent } from './home/calendar/calendar.component';
-import { ContasComponent } from './home/contas/contas.component';
+import { ContasComponent } from './contas/contas.component';
 import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './home/profile/profile.component';
-import { TransacoesComponent } from './home/transacoes/transacoes.component';
-import { RelatorioComponent } from './home/relatorio/relatorio.component';
+import { TransacoesComponent } from './transacoes/transacoes.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     ContasComponent,
     TransacoesComponent,
-    ProfileComponent,
     CalendarComponent,
-    RelatorioComponent,
   ],
   imports: [
     CommonModule,

@@ -5,12 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
-  sidebarElement!: HTMLElement;
-
-  receberSidebar(value: HTMLElement) {
-    if (value) {
-      this.sidebarElement = value;
-    }
-  }
-}
+export class HomeComponent {}

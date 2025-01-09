@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ContaService } from '../../../services/conta.service';
+import { ContaService } from '../../services/conta.service';
 @Component({
   selector: 'app-contas',
   templateUrl: './contas.component.html',

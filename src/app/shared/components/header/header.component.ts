@@ -1,4 +1,6 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ManipularDomService } from '../../services/manipular-dom.service';
 @Component({
   selector: 'app-header',

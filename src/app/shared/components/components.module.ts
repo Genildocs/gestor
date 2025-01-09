@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import {
   CommonModule,
   TitleCasePipe,
@@ -40,6 +41,8 @@ import { CardValoresComponent } from './card-valores/card-valores.component';
 import { TableCaixaComponent } from './table-caixa/table-caixa.component';
 import { MenuModule } from 'headlessui-angular';
 import { ListboxModule } from 'headlessui-angular';
+import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.component';
+
 @NgModule({
   declarations: [
     SideBarComponent,
@@ -51,6 +54,7 @@ import { ListboxModule } from 'headlessui-angular';
     ChartContasComponent,
     CardValoresComponent,
     TableCaixaComponent,
+    DashboardLayoutComponent,
   ],
   imports: [
     CommonModule,
@@ -84,6 +88,7 @@ import { ListboxModule } from 'headlessui-angular';
     NgApexchartsModule,
     MenuModule,
     ListboxModule,
+    RouterOutlet,
   ],
   exports: [
     SideBarComponent,
@@ -94,6 +99,7 @@ import { ListboxModule } from 'headlessui-angular';
     ChartContasComponent,
     CardValoresComponent,
     TableCaixaComponent,
+    DashboardLayoutComponent,
   ],
   providers: [MessageService, ConfirmationService],
 })
