@@ -42,6 +42,8 @@ import { TableCaixaComponent } from './table-caixa/table-caixa.component';
 import { MenuModule } from 'headlessui-angular';
 import { ListboxModule } from 'headlessui-angular';
 import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { AccountDeleteComponent } from './account-delete/account-delete.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.co
     CardValoresComponent,
     TableCaixaComponent,
     DashboardLayoutComponent,
+    AccountSettingsComponent,
+    AccountDeleteComponent,
   ],
   imports: [
     CommonModule,
@@ -100,6 +104,8 @@ import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.co
     CardValoresComponent,
     TableCaixaComponent,
     DashboardLayoutComponent,
+    AccountSettingsComponent,
+    AccountDeleteComponent,
   ],
   providers: [MessageService, ConfirmationService],
 })

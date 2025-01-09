@@ -14,6 +14,7 @@ import { DashboardsRoutingModule } from './dashboards-routing.module';
 import { ContasComponent } from './contas/contas.component';
 import { HomeComponent } from './home/home.component';
 import { TransacoesComponent } from './transacoes/transacoes.component';
+import { ProfileModule } from './profile/profile.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { TransacoesComponent } from './transacoes/transacoes.component';
     DatePickerModule,
     InputTextModule,
     InputNumber,
+    ProfileModule,
   ],
 })
 export class DashboardsModule {}
