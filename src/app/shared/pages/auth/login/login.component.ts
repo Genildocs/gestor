@@ -37,10 +37,10 @@ export class LoginComponent {
     const formData = this.loginForm.value;
     this.loading = true;
 
-    this.authService.loginUser(formData).subscribe({
-      next: (response: any) => {
+    this.authService.loginUser(formData.email, formData.password).subscribe({
+      next: (response: { token: string }) => {
         this.loading = false;
-        const { token } = response.status;
+        const { token } = response;
         this.authService.saveToken(token);
         this.router.navigate(['dashboard/home']);
       },
