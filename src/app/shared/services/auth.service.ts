@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,13 +18,17 @@ export class AuthService {
     email: string,
     password: string
   ): Observable<{ token: string; username: string }> {
-    return this.http.post<{ token: string; username: string }>(
-      `${this.apiUrl}/login`,
-      {
+    return this.http
+      .post<{ token: string; username: string }>(`${this.apiUrl}/login`, {
         email,
         password,
-      }
-    );
+      })
+      .pipe(
+        map((resp) => {
+          localStorage.setItem('authToken', resp.token);
+          return resp;
+        })
+      );
   }
 
   logoutUser(): void {
@@ -32,9 +36,9 @@ export class AuthService {
     this.router.navigate(['/auth/login']);
   }
 
-  saveToken(token: string): void {
-    localStorage.setItem('authToken', token);
-  }
+  // saveToken(token: string): void {
+  //   localStorage.setItem('authToken', token);
+  // }
 
   getToken(): string | null {
     return localStorage.getItem('authToken');

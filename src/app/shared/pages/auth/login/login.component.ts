@@ -40,8 +40,9 @@ export class LoginComponent {
     this.authService.loginUser(formData.email, formData.password).subscribe({
       next: (response: { token: string; username: string }) => {
         this.loading = false;
-        const { token } = response;
-        this.authService.saveToken(token);
+        // const { token } = response;
+        // console.log(response);
+        // this.authService.saveToken(token);
         this.router.navigate(['dashboard/home']);
       },
       error: (error) => {
@@ -52,6 +53,9 @@ export class LoginComponent {
           this.isValidFormSubmitted = false;
         }, 3000);
         console.error('Error registering user:', error);
+      },
+      complete: () => {
+        console.log('Login concluido');
       },
     });
   }
