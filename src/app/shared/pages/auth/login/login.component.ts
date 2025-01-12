@@ -38,7 +38,7 @@ export class LoginComponent {
     this.loading = true;
 
     this.authService.loginUser(formData.email, formData.password).subscribe({
-      next: (response: { token: string }) => {
+      next: (response: { token: string; username: string }) => {
         this.loading = false;
         const { token } = response;
         this.authService.saveToken(token);

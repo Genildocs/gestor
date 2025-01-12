@@ -14,11 +14,17 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, data);
   }
 
-  loginUser(email: string, password: string): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, {
-      email,
-      password,
-    });
+  loginUser(
+    email: string,
+    password: string
+  ): Observable<{ token: string; username: string }> {
+    return this.http.post<{ token: string; username: string }>(
+      `${this.apiUrl}/login`,
+      {
+        email,
+        password,
+      }
+    );
   }
 
   logoutUser(): void {
