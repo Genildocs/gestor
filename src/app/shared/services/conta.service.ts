@@ -15,38 +15,31 @@ export class ContaService {
     private authService: AuthService
   ) {}
 
-  getUsers() {
-    return this.http.get(`${this.apiUrl}/users`, {
+  token(): { headers: { Authorization: string } } {
+    const token = localStorage.getItem('authToken');
+    return {
       headers: {
-        Authorization: `Bearer ${this.authService.getToken()}`,
+        Authorization: `Bearer ${token}`,
       },
-    });
+    };
+  }
+
+  getUsers() {
+    return this.http.get(`${this.apiUrl}/users`, this.token());
   }
 
   createConta(data: any) {
-    return this.http.post(`${this.apiUrl}/contas`, data, {
-      headers: {
-        Authorization: `Bearer ${this.authService.getToken()}`,
-      },
-    });
+    return this.http.post(`${this.apiUrl}/contas`, data, this.token());
   }
 
   getContas() {
-    return this.http.get(`${this.apiUrl}/contas`, {
-      headers: {
-        Authorization: `Bearer ${this.authService.getToken()}`,
-      },
-    });
+    return this.http.get(`${this.apiUrl}/contas`, this.token());
   }
 
   deleteConta(id: string): Observable<{ contas: Contas[] }> {
     return this.http.delete<{ contas: Contas[] }>(
       `${this.apiUrl}/contas/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${this.authService.getToken()}`,
-        },
-      }
+      this.token()
     );
   }
 
@@ -54,11 +47,7 @@ export class ContaService {
     return this.http.put<{ contas: Contas[] }>(
       `${this.apiUrl}/contas/${id}`,
       data,
-      {
-        headers: {
-          Authorization: `Bearer ${this.authService.getToken()}`,
-        },
-      }
+      this.token()
     );
   }
 }
