@@ -111,7 +111,11 @@
           </a>
         </li>
         <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
-          <a class="flex gap-2 items-center text-sm">
+          <a
+            class="flex gap-2 items-center text-sm"
+            routerLink="settings"
+            (click)="toggleSidebar()"
+          >
             <i class="pi pi-cog" style="font-size: 1rem"></i>
             <span>Settings</span>
           </a>

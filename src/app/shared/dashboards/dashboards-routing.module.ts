@@ -66,6 +66,13 @@ const routes: Routes = [
             (m) => m.CaixaRoutingModule
           ),
       },
+      {
+        path: 'settings',
+        loadChildren: () =>
+          import('./settings/settings-routing.module').then(
+            (m) => m.SettingsRoutingModule
+          ),
+      },
     ],
   },
 ];
