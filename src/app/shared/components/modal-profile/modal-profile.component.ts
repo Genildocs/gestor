@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './modal-profile.component.css',
 })
 export class ModalProfileComponent {
+  nome: string = 'John';
+  email: string = 'john@example.com';
   constructor(public authService: AuthService) {}
 
   logout() {
