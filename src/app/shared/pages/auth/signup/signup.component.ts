@@ -11,6 +11,8 @@ export class SignupComponent {
   signupForm: FormGroup;
   loading: boolean = false;
   isValidFormSubmitted = false;
+  resErro: { error: string } = { error: '' };
+  error: string = '';
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -45,7 +47,9 @@ export class SignupComponent {
         setTimeout(() => {
           this.isValidFormSubmitted = false;
         }, 3000);
-        console.error('Error registering user:', error);
+        console.error('Error registering user:', error.error);
+        this.resErro = { error: error.error };
+        this.error = Object.values(this.resErro.error)[0];
       },
     });
   }

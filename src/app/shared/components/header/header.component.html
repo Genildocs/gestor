@@ -30,12 +30,12 @@
           (click)="modalVisble()"
         />
 
-        <div [ngClass]="{ hiddenModal: !isVisible, showModal: isVisible }">
-          <app-modal-profile></app-modal-profile>
-        </div>
-        <!-- <div>
+        <!-- <div [ngClass]="{ hiddenModal: !isVisible, showModal: isVisible }">
           <app-modal-profile></app-modal-profile>
         </div> -->
+        <div>
+          <app-modal-profile [isVisible]="isVisible"></app-modal-profile>
+        </div>
       </div>
     </nav>
   </div>

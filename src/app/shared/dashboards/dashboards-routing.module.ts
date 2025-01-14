@@ -4,11 +4,12 @@ import { DashboardLayoutComponent } from '../components/dashboard-layout/dashboa
 import { HomeComponent } from './home/home.component';
 import { TransacoesComponent } from './transacoes/transacoes.component';
 import { ContasComponent } from './contas/contas.component';
-
+import { AuthGuard } from '../services/auth.guard';
 const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardLayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',

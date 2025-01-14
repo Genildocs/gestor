@@ -56,8 +56,8 @@
       class="bg-gradient-to-r from-blue-500 to-blue-400 p-5 bg-white rounded-[.375rem] relative"
     >
       <span class="font-semibold">Null</span>
-      @if(pagar < 0){
-      <h5 class="text-3xl mt-3">R$ {{ pagar }}</h5>
+      @if(pagar > 0){
+      <h5 class="text-3xl mt-3">NULL</h5>
       }@else {
       <div class="flex items-center justify-center">
         <div class="loader-cards"></div>
