@@ -163,7 +163,10 @@ export class TableContasComponent implements OnInit {
 
   deleteMetodo(conta: Contas) {
     this.confirmationService.confirm({
-      message: 'Are you sure you want to delete ' + conta.nome + '?',
+      message:
+        'Tem certeza de que deseja excluir os produtos selecionados ' +
+        conta.nome +
+        '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
 
