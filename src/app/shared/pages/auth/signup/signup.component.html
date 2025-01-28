@@ -1,5 +1,5 @@
 <div class="bg-slate-100 h-full flex flex-col items-center justify-center">
-  <div
+  <!-- <div
     class="w-[20rem] bg-white border-[1px] border-solid border-gray-300 p-3 rounded-md"
   >
     <h1 class="text-center text-3xl font-semibold text-green-600 pt-5">
@@ -8,14 +8,15 @@
     <div>
       <div class="p-4">
         <div class="text-center mb-5">
-          <h5>Criar nova conta</h5>
-          <p class="text-sm">Crie sua conta no Gestor gratuitamente</p>
+          <h5>Bem vindo!</h5>
+          <p class="text-sm">Efetue login ou crie uma nova conta</p>
         </div>
         <div>
           <form
-            [formGroup]="signupForm"
-            (ngSubmit)="onSubmit()"
             class="text-sm"
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()"
+            novalidate
           >
             <div>
               <div class="flex flex-col">
@@ -26,29 +27,26 @@
                   placeholder="Informe seu email"
                   pInputText
                   formControlName="email"
+                  [ngClass]="{
+                    'p-invalid': isValidFormSubmitted
+                  }"
                 />
               </div>
-              <div class="h-6 flex items-center">
-                <p class="text-xs text-red-500" *ngIf="isValidFormSubmitted">
-                  Favor digite um email valido!
-                </p>
-              </div>
-            </div>
-            <div>
-              <div class="flex flex-col">
-                <label for="username">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  placeholder="Escolha um username"
-                  pInputText
-                  formControlName="username"
-                />
-              </div>
-              <div class="h-6 flex items-center">
-                <p class="text-xs text-red-500" *ngIf="isValidFormSubmitted">
-                  Usuario obrigatório!
-                </p>
+              <div class="h-5 flex items-center">
+                <div
+                  *ngIf="
+                    !isValidFormSubmitted && !loginForm.controls['email'].errors
+                  "
+                >
+                  <p class="text-xs text-green-500">Looks Good!</p>
+                </div>
+                <div
+                  *ngIf="
+                    isValidFormSubmitted && loginForm.controls['email'].errors
+                  "
+                >
+                  <p class="text-xs text-red-500">Por favor insira um email!</p>
+                </div>
               </div>
             </div>
             <div>
@@ -59,20 +57,38 @@
                   formControlName="password"
                   id="password"
                   [toggleMask]="true"
+                  [ngClass]="isValidFormSubmitted ? '' : ''"
                 />
               </div>
-              <div class="h-10 flex items-center">
-                <p class="text-xs text-red-500" *ngIf="isValidFormSubmitted">
-                  Senha obrigatória e deve conter no minimo 8 caracteres!
-                </p>
+              <div class="h-5 flex items-center">
+                <div
+                  *ngIf="
+                    !isValidFormSubmitted &&
+                    !loginForm.controls['password'].errors
+                  "
+                >
+                  <p class="text-xs text-green-500">Looks Good!</p>
+                </div>
+                <div
+                  *ngIf="
+                    isValidFormSubmitted &&
+                    loginForm.controls['password'].errors
+                  "
+                >
+                  <p class="text-xs text-red-500">
+                    Por favor insira uma senha!
+                  </p>
+                </div>
               </div>
             </div>
-            <button
-              type="submit"
-              class="w-full bg-green-700 text-white py-2 rounded-md"
-            >
-              Criar conta
-            </button>
+            <div>
+              <button
+                class="w-full bg-green-700 text-white py-2 rounded-md"
+                type="submit"
+              >
+                Login
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -82,14 +98,19 @@
         <div class="loader"></div>
       </div>
     </div>
-    <p-toast />
+    <div>
+      <p-toast />
+    </div>
     <div>
       <div class="mt-4 text-center">
         <p>
-          Ja possui uma conta?
-          <a routerLink="/auth/login" class="text-blue-500 underline">Login</a>
+          Criar conta?
+          <a routerLink="/auth/signup" class="text-blue-500 underline">
+            Signup</a
+          >
         </p>
       </div>
     </div>
-  </div>
+  </div> -->
+  <h1>Aplicação em manutenção!</h1>
 </div>
