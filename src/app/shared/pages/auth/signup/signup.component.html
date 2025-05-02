@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center justify-center h-full bg-slate-100">
-  <!-- <div
+   <div
     class="w-[20rem] bg-white border-[1px] border-solid border-gray-300 p-3 rounded-md"
   >
     <h1 class="pt-5 text-3xl font-semibold text-center text-green-600">
@@ -14,7 +14,7 @@
         <div>
           <form
             class="text-sm"
-            [formGroup]="loginForm"
+            [formGroup]="signupForm"
             (ngSubmit)="onSubmit()"
             novalidate
           >
@@ -35,14 +35,14 @@
               <div class="flex items-center h-5">
                 <div
                   *ngIf="
-                    !isValidFormSubmitted && !loginForm.controls['email'].errors
+                    !isValidFormSubmitted && !signupForm.controls['email'].errors
                   "
                 >
                   <p class="text-xs text-green-500">Looks Good!</p>
                 </div>
                 <div
                   *ngIf="
-                    isValidFormSubmitted && loginForm.controls['email'].errors
+                    isValidFormSubmitted && signupForm.controls['email'].errors
                   "
                 >
                   <p class="text-xs text-red-500">Por favor insira um email!</p>
@@ -64,7 +64,7 @@
                 <div
                   *ngIf="
                     !isValidFormSubmitted &&
-                    !loginForm.controls['password'].errors
+                    !signupForm.controls['password'].errors
                   "
                 >
                   <p class="text-xs text-green-500">Looks Good!</p>
@@ -72,7 +72,7 @@
                 <div
                   *ngIf="
                     isValidFormSubmitted &&
-                    loginForm.controls['password'].errors
+                    signupForm.controls['password'].errors
                   "
                 >
                   <p class="text-xs text-red-500">
@@ -111,6 +111,6 @@
         </p>
       </div>
     </div>
-  </div> -->
+  </div> 
   
 </div>

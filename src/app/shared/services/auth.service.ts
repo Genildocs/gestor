@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import { Register as ResgisterUser, Login } from '../interfaces/auth';
+import { catchError, map, Observable } from 'rxjs';
+import { Register as ResgisterUser } from '../interfaces/auth';
 @Injectable({
   providedIn: 'root',
 })
@@ -30,8 +30,15 @@ export class AuthService {
       })
       .pipe(
         map((resp) => {
-          localStorage.setItem('authToken', resp.token);
+          if (!resp.token) {
+            throw new Error('Token não recebido do servidor');
+          }
+          this.saveToken(resp.token);
           return resp;
+        }),
+        catchError((error) => {
+          this.clearToken();
+          throw error;
         })
       );
   }
@@ -52,5 +59,22 @@ export class AuthService {
   isAuthenticated(): boolean {
     const token = this.getToken();
     return !!token;
+  }
+
+  private saveToken(token: string): void {
+    try {
+      localStorage.setItem('authToken', token);
+    } catch (error) {
+      console.error('Erro ao salvar token:', error);
+      throw new Error('Não foi possível salvar o token de autenticação');
+    }
+  }
+
+  private clearToken(): void {
+    try {
+      localStorage.removeItem('authToken');
+    } catch (error) {
+      console.error('Erro ao remover token:', error);
+    }
   }
 }

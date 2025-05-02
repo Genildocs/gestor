@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -31,28 +31,40 @@ export class LoginComponent {
     });
   }
   onSubmit() {
+    this.isValidFormSubmitted = true;
+    
+    if (this.loginForm.invalid) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erro',
+        detail: 'Por favor, preencha todos os campos corretamente'
+      });
+      return;
+    }
+
     const formData = this.loginForm.value;
     this.loading = true;
+    
     this.authService.loginUser(formData.email, formData.password).subscribe({
-      next: (response: { token: string; username: string }) => {
+      next: () => {
         this.loading = false;
-        // const { token } = response;
-        // console.log(response);
-        // this.authService.saveToken(token);
-        this.router.navigate(['dashboard/home']);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sucesso',
+          detail: 'Login realizado com sucesso!'
+        });
+        this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         this.loading = false;
-        this.isValidFormSubmitted = true;
-        this.show();
-        setTimeout(() => {
-          this.isValidFormSubmitted = false;
-        }, 3000);
-        console.error('Error registering user:', error);
-      },
-      complete: () => {
-        console.log('Login concluido');
-      },
+        this.isValidFormSubmitted = false;
+        console.error('Erro ao fazer login:', error.error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erro',
+          detail: error.error?.message || 'Erro ao fazer login. Tente novamente.'
+        });
+      }
     });
   }
 }
