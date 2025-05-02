@@ -1,0 +1,35 @@
+<div class="pt-[75px] md:ml-[210px] mx-[10px] h-full">
+  <h5>Users - Account Settings</h5>
+  <div class="pt-5">
+    <div class="mb-5 flex items-center justify-between">
+      <h5 class="text-lg font-semibold">Edit Profile</h5>
+    </div>
+    <div class="mb-5 gap-2 flex border-b border-[#e0e6ed] font-semibold">
+      <a
+        href="javascript:void(0)"
+        class="flex items-center gap-2 border-b border-transparent p-4 !outline-none hover:border-blue-500 hover:text-blue-500 transition-all duration-300 ease-in-out"
+        [ngClass]="stateLinks ? ' !border-blue-500 text-blue-500 ' : ''"
+        (click)="selectStateLinks()"
+      >
+        <i class="pi pi-home" style="font-size: 1rem"></i>
+        Home
+      </a>
+      <a
+        href="javascript:void(0)"
+        class="flex items-center gap-2 border-b border-transparent p-4 !outline-none hover:border-red-500 hover:text-red-500 transition-all duration-300 ease-in-out"
+        [ngClass]="stateLinks ? '' : ' !border-red-500 text-red-500 '"
+        (click)="selectStateLinks()"
+      >
+        <i class="pi pi-exclamation-triangle" style="font-size: 1rem"></i>
+        Excluir conta
+      </a>
+    </div>
+    <ng-content>
+      @if(stateLinks){
+      <app-account-settings></app-account-settings>
+      }@else{
+      <app-account-delete></app-account-delete>
+      }
+    </ng-content>
+  </div>
+</div>

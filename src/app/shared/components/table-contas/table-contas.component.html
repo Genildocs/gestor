@@ -1,0 +1,255 @@
+<div>
+  <ng-content>
+    <app-card-valores [contas]="contas"></app-card-valores>
+    <app-chart-contas [contas]="contas"></app-chart-contas>
+  </ng-content>
+  <div class="card">
+    <p-toast />
+    <p-toolbar styleClass="mb-6">
+      <ng-template #start>
+        <p-button
+          label="New"
+          icon="pi pi-plus"
+          class="mr-2"
+          (onClick)="openNew()"
+        />
+        <p-button
+          severity="danger"
+          label="Delete"
+          icon="pi pi-trash"
+          outlined
+          (onClick)="deleteSelectedContas()"
+          [disabled]="!selectedContas || !selectedContas.length"
+        />
+      </ng-template>
+    </p-toolbar>
+
+    <p-table
+      #dt
+      [value]="contas"
+      (onLazyLoad)="loadNodes($event)"
+      [rows]="10"
+      [columns]="cols"
+      [paginator]="true"
+      [globalFilterFields]="[
+        '_id',
+        'nome',
+        'valor',
+        'vencimento',
+        'status',
+        'tipo'
+      ]"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [(selection)]="selectedContas"
+      [rowHover]="true"
+      dataKey="_id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+    >
+      <ng-template #caption>
+        <div class="flex items-center justify-between">
+          <h5 class="m-0 text-lg font-semibold">Gerenciar Contas</h5>
+          <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input
+              pInputText
+              type="text"
+              (input)="onGlobalFilter(dt, $event)"
+              placeholder="Search..."
+            />
+          </p-iconfield>
+        </div>
+      </ng-template>
+      <ng-template #header>
+        <tr>
+          <th style="width: 3rem">
+            <p-tableHeaderCheckbox />
+          </th>
+          <th pSortableColumn="id" style="min-width: 10rem">
+            ID
+            <p-sortIcon field="id" />
+          </th>
+          <th pSortableColumn="nome" style="min-width: 16rem">
+            Nome
+            <p-sortIcon field="nome" />
+          </th>
+          <th>Image</th>
+          <th pSortableColumn="valor" style="min-width: 8rem">
+            Valor
+            <p-sortIcon field="valor" />
+          </th>
+          <th pSortableColumn="tipo" style="min-width: 10rem">
+            Tipo
+            <p-sortIcon field="tipo" />
+          </th>
+          <th pSortableColumn="status" style="min-width: 12rem">
+            Status
+            <p-sortIcon field="status" />
+          </th>
+          <th pSortableColumn="vencimento" style="min-width: 12rem">
+            Vencimento
+            <p-sortIcon field="vencimento" />
+          </th>
+          <th style="min-width: 12rem">Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-conta>
+        <tr>
+          <td style="width: 3rem">
+            <p-tableCheckbox [value]="conta" />
+          </td>
+          <td style="min-width: 12rem">
+            {{ conta.id }}
+          </td>
+          <td style="min-width: 16rem">{{ conta.nome | uppercase }}</td>
+          <td>NULL</td>
+          <td>{{ conta.valor | currency : "R$" }}</td>
+          <td>
+            <p-tag
+              [value]="conta.tipo | titlecase"
+              [severity]="getSeverity(conta.tipo)"
+            />
+          </td>
+          <td>
+            <p-tag
+              [value]="conta.status | titlecase"
+              [severity]="getSeverity(conta.status)"
+            />
+          </td>
+          <td>{{ conta.vencimento | date : "dd/MM/yyyy" }}</td>
+          <td>
+            <p-button
+              icon="pi pi-pencil"
+              class="mr-2"
+              [rounded]="true"
+              [outlined]="true"
+              (click)="editProduct(conta)"
+            />
+            <p-button
+              icon="pi pi-trash"
+              severity="danger"
+              [rounded]="true"
+              [outlined]="true"
+              (click)="deleteMetodo(conta)"
+            />
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #summary>
+        <div class="flex items-center justify-between">
+          No total são {{ contas ? contas.length : 0 }} contas.
+        </div>
+      </ng-template>
+    </p-table>
+
+    <p-dialog
+      [(visible)]="contaDialog"
+      [style]="{ width: '450px' }"
+      header="Adicionar Conta"
+      [modal]="true"
+    >
+      <ng-template #content>
+        <div class="flex flex-col gap-6">
+          <div>
+            <label for="name" class="block font-bold mb-3">Name</label>
+            <input
+              type="text"
+              pInputText
+              id="nome"
+              [(ngModel)]="conta.nome"
+              required
+              autofocus
+              fluid
+            />
+            <small class="text-red-500" *ngIf="submitted && !conta.nome"
+              >Name is required.</small
+            >
+          </div>
+          <div>
+            <label for="description" class="block font-bold mb-3"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              pTextarea
+              [(ngModel)]="conta.description"
+              required
+              rows="3"
+              cols="20"
+              fluid
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="status" class="block font-bold mb-3">Status</label>
+            <p-select
+              [(ngModel)]="conta.status"
+              inputId="status"
+              [options]="statuses"
+              placeholder="Selecione o Status"
+              fluid
+            />
+          </div>
+
+          <div>
+            <label for="tipo" class="block font-bold mb-3">Tipo</label>
+            <p-select
+              [(ngModel)]="conta.tipo"
+              inputId="tipo"
+              [options]="tipo"
+              placeholder="Selecione o tipo"
+              [disabled]="conta.id ? true : false"
+              fluid
+            />
+            <small class="text-red-500" *ngIf="submitted && !conta.tipo"
+              >Tipo is required.</small
+            >
+          </div>
+
+          <div>
+            <label for="vencimento" class="block font-bold mb-3"
+              >Vencimento</label
+            >
+            <p-datepicker [(ngModel)]="conta.vencimento" />
+          </div>
+
+          <div class="grid grid-cols-12 gap-4">
+            <div class="col-span-6">
+              <label for="valor" class="block font-bold mb-3">Valor</label>
+              <p-inputnumber
+                id="valor"
+                [(ngModel)]="conta.valor"
+                mode="currency"
+                currency="BRL"
+                locale="pt-BR"
+                required
+                fluid
+              />
+              <small class="text-red-500" *ngIf="submitted && !conta.valor"
+                >Valor is required.</small
+              >
+            </div>
+            <div class="col-span-6">
+              <label for="parcelamento" class="block font-bold mb-3"
+                >Parcelamento</label
+              >
+              <p-inputnumber id="parcelamento" fluid [disabled]="true" />
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #footer>
+        <p-button
+          label="Cancel"
+          icon="pi pi-times"
+          text
+          (click)="hideDialog()"
+        />
+        <p-button label="Save" icon="pi pi-check" (click)="saveProduct()" />
+      </ng-template>
+    </p-dialog>
+
+    <p-confirmDialog [style]="{ width: '450px' }" />
+  </div>
+</div>

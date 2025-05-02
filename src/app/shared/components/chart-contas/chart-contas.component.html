@@ -1,0 +1,25 @@
+<div
+  class="h-full p-0 relative rounded-[.375rem] bg-white shadow-cyan-400 border border-solid border-gray-300"
+>
+  <div
+    class="mb-5 flex items-start justify-between border-b border-[#e0e6ed] p-5"
+  >
+    <h5 class="text-lg font-semibold">Valores por mês</h5>
+  </div>
+  <div class="overflow-hidden">
+    <apx-chart
+      [chart]="chartOptions.chart!"
+      [series]="chartOptions.series!"
+      [xaxis]="chartOptions.xaxis!"
+      [yaxis]="chartOptions.yaxis!"
+      [title]="chartOptions.title!"
+      [stroke]="chartOptions.stroke!"
+      [grid]="chartOptions.grid!"
+      [fill]="chartOptions.fill!"
+      [tooltip]="chartOptions.tooltip!"
+      [plotOptions]="chartOptions.plotOptions!"
+      #chartObj
+      class="!rounded-lg bg-white"
+    ></apx-chart>
+  </div>
+</div>

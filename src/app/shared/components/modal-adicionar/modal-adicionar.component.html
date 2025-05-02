@@ -1,0 +1,95 @@
+<div
+  class="fixed h-full w-full left-0 top-0 flex items-center justify-center pointer-events-auto z-[1101] modalAdicionar transition-all duration-300 overflow-hidden"
+  id="modal-adicionar"
+>
+  <div class="bg-black w-full h-full fixed opacity-35"></div>
+  <div
+    class="w-[350px] md:w-[450px] max-h-[90%] bg-white border-[1px] border-solid border-gray-300 rounded-md flex flex-col z-[1102]"
+  >
+    <div class="flex items-center justify-between p-4 shrink-0 text-gray-500">
+      <span class="font-semibold text-2xl">Adicionar contas</span>
+      <div class="flex items-center justify-center gap-2 h-10 w-10">
+        <div>
+          <button (click)="closeModal()">
+            <i class="pi pi-times"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <form
+      class="p-4 overflow-y-auto"
+      [formGroup]="contaForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="flex flex-col gap-6">
+        <div class="flex flex-col">
+          <label for="nome" class="text-sm">Nome da conta</label>
+          <input
+            type="text"
+            id="nome"
+            formControlName="nome"
+            placeholder="Nome da conta"
+            class="inputs"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label for="description" class="text-sm">Description</label>
+          <textarea
+            rows="3"
+            cols="20"
+            placeholder="Descrição da conta"
+            formArrayName="description"
+            id="description"
+            class="outline-none border-[1px] border-solid border-gray-300 rounded-md px-2 py-2 mt-2"
+          ></textarea>
+        </div>
+        <div class="flex flex-col">
+          <label for="valor" class="text-sm">Valor</label>
+          <input
+            type="text"
+            id="valor"
+            formControlName="valor"
+            placeholder="valor da conta"
+            class="inputs"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label for="vencimento" class="text-sm">Vencimento</label>
+          <input
+            type="date"
+            id="vencimento"
+            formControlName="vencimento"
+            placeholder="Vencimento da conta"
+            class="inputs !text-sm"
+          />
+        </div>
+        <div class="flex flex-col">
+          <label class="text-sm mb-1">Selecione o tipo</label>
+          <p-select
+            formControlName="selectedTipo"
+            [options]="tipos"
+            optionLabel="nome"
+            placeholder="Selecione o tipo"
+            class="w-full md:w-56 !static !text-sm"
+          />
+        </div>
+        <div class="flex items-center justify-end gap-2">
+          <div
+            class="flex items-center gap-2 text-green-600 hover:bg-green-100 px-2 py-1 rounded-md"
+          >
+            <i class="pi pi-plus" style="font-size: 0.7rem"></i>
+            <button class="text-sm" (click)="closeModal()">Cancelar</button>
+          </div>
+
+          <div
+            class="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-2 py-1 rounded-md text-white"
+          >
+            <i class="pi pi-plus" style="font-size: 0.8rem"></i>
+            <button type="submit" class="text-sm">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <p-toast />
+  </div>
+</div>

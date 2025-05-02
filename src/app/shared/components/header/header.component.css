@@ -1,0 +1,19 @@
+.hiddenModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(100%);
+  transition: all 0.3s ease-in-out;
+}
+
+.showModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(50%);
+  transition: all 0.3s ease-in-out;
+}

@@ -1,0 +1,115 @@
+<div class="flex flex-col items-center justify-center h-full bg-slate-100">
+  <div
+    class="w-[20rem] bg-white border-[1px] border-solid border-gray-300 p-3 rounded-md"
+  >
+    <h1 class="pt-5 text-3xl font-semibold text-center text-green-600">
+      Gestor
+    </h1>
+    <div>
+      <div class="p-4">
+        <div class="mb-5 text-center">
+          <h5>Bem vindo!</h5>
+          <p class="text-sm">Efetue login ou crie uma nova conta</p>
+        </div>
+        <div>
+          <form
+            class="text-sm"
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()"
+            novalidate
+          >
+            <div>
+              <div class="flex flex-col">
+                <label for="email">Email</label>
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="Informe seu email"
+                  pInputText
+                  formControlName="email"
+                  [ngClass]="{
+                    'p-invalid': isValidFormSubmitted
+                  }"
+                />
+              </div>
+              <div class="flex items-center h-5">
+                <div
+                  *ngIf="
+                    !isValidFormSubmitted && !loginForm.controls['email'].errors
+                  "
+                >
+                  <p class="text-xs text-green-500">Looks Good!</p>
+                </div>
+                <div
+                  *ngIf="
+                    isValidFormSubmitted && loginForm.controls['email'].errors
+                  "
+                >
+                  <p class="text-xs text-red-500">Por favor insira um email!</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="flex flex-col">
+                <label for="password">Password</label>
+                <p-password
+                  placeholder="Digite uma senha"
+                  formControlName="password"
+                  id="password"
+                  [toggleMask]="true"
+                  [ngClass]="isValidFormSubmitted ? '' : ''"
+                />
+              </div>
+              <div class="flex items-center h-5">
+                <div
+                  *ngIf="
+                    !isValidFormSubmitted &&
+                    !loginForm.controls['password'].errors
+                  "
+                >
+                  <p class="text-xs text-green-500">Looks Good!</p>
+                </div>
+                <div
+                  *ngIf="
+                    isValidFormSubmitted &&
+                    loginForm.controls['password'].errors
+                  "
+                >
+                  <p class="text-xs text-red-500">
+                    Por favor insira uma senha!
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button
+                class="w-full py-2 text-white bg-green-700 rounded-md"
+                type="submit"
+              >
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="h-5">
+      <div class="flex items-center justify-center" *ngIf="loading">
+        <div class="loader"></div>
+      </div>
+    </div>
+    <div>
+      <p-toast />
+    </div>
+    <div>
+      <div class="mt-4 text-center">
+        <p>
+          Criar conta?
+          <a routerLink="/auth/signup" class="text-blue-500 underline">
+            Signup</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<header class="relative">
+  <div
+    class="bg-blue-300 shadow-custom h-[70px] z-50 md:z-10 fixed right-0 left-0 px-3 flex justify-between items-center md:ml-[200px] transition-all duration-300"
+  >
+    <div class="flex items-center gap-5">
+      <div class="md:hidden">
+        <h1 class="text-4xl font-semibold text-green-700 uppercase">G</h1>
+      </div>
+      <div>
+        <button (click)="toggleSidebar()">
+          <i
+            class="pi pi-align-justify"
+            style="font-size: 1.2rem; color: aliceblue"
+          ></i>
+        </button>
+      </div>
+    </div>
+    <nav class="flex gap-5">
+      <button>
+        <i class="pi pi-search" style="font-size: 1.1rem; color: aliceblue"></i>
+      </button>
+      <button>
+        <i class="pi pi-bell" style="font-size: 1.1rem; color: aliceblue"></i>
+      </button>
+      <div>
+        <img
+          src="/assets/avatar.webp"
+          alt="avatar"
+          class="w-[40px] h-[40px] cursor-pointer"
+          (click)="modalVisble()"
+        />
+
+        <!-- <div [ngClass]="{ hiddenModal: !isVisible, showModal: isVisible }">
+          <app-modal-profile></app-modal-profile>
+        </div> -->
+        <div>
+          <app-modal-profile [isVisible]="isVisible"></app-modal-profile>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
