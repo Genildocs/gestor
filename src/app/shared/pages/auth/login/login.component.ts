@@ -32,28 +32,28 @@ export class LoginComponent {
   }
   onSubmit() {
     this.isValidFormSubmitted = true;
-    
+
     if (this.loginForm.invalid) {
       this.messageService.add({
         severity: 'error',
         summary: 'Erro',
-        detail: 'Por favor, preencha todos os campos corretamente'
+        detail: 'Por favor, preencha todos os campos corretamente',
       });
       return;
     }
 
     const formData = this.loginForm.value;
     this.loading = true;
-    
+
     this.authService.loginUser(formData.email, formData.password).subscribe({
       next: () => {
         this.loading = false;
         this.messageService.add({
           severity: 'success',
           summary: 'Sucesso',
-          detail: 'Login realizado com sucesso!'
+          detail: 'Login realizado com sucesso!',
         });
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard/home']);
       },
       error: (error) => {
         this.loading = false;
@@ -62,9 +62,10 @@ export class LoginComponent {
         this.messageService.add({
           severity: 'error',
           summary: 'Erro',
-          detail: error.error?.message || 'Erro ao fazer login. Tente novamente.'
+          detail:
+            error.error?.message || 'Erro ao fazer login. Tente novamente.',
         });
-      }
+      },
     });
   }
 }

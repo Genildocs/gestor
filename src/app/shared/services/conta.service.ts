@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ContaService {
-  private apiUrl = 'https://api-gestor-x0c7.onrender.com/api/v1';
+  private apiUrl = 'https://api-gestor-hz59.onrender.com/api/v1';
   constructor(
     private http: HttpClient,
     private router: Router,

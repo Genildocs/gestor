@@ -1,90 +1,102 @@
 <div
-  class="bg-white fixed top-0 bottom-0 shadow-custom w-[200px] z-10 md:z-50 mt-[70px] md:mt-0 transition-all duration-300"
-  [ngClass]="{ showSidebar: currentStateSideBar }"
+  class="bg-white fixed top-0 bottom-0 shadow-lg w-[250px] z-10 md:z-50 mt-[70px] md:mt-0 transition-all duration-300 border-r border-gray-200"
+  [class.md:translate-x-0]="currentStateSideBar"
+  [class.md:-translate-x-full]="!currentStateSideBar"
   id="sidebar"
 >
-  <div class="flex items-center justify-center my-5">
-    <H1 class="text-2xl font-semibold text-green-600">Gestor</H1>
+  <!-- Logo Section -->
+  <div class="flex items-center justify-center py-6 border-b border-gray-200">
+    <h1 class="text-2xl font-bold tracking-tight text-green-600">Gestor</h1>
   </div>
-  <hr />
-  <div class="p-4">
-    <div>
-      <div class="flex items-center gap-2 p-1 pl-2 bg-slate-300 rounded-md">
-        <i class="pi pi-book" style="font-size: 1rem"></i>
-        <h5>Dashboards</h5>
+
+  <!-- Navigation Section -->
+  <div class="p-4 space-y-6">
+    <!-- Dashboard Section -->
+    <div class="space-y-2">
+      <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-green-50">
+        <i class="text-green-600 pi pi-book" style="font-size: 1rem"></i>
+        <h5 class="font-medium text-gray-700">Dashboards</h5>
       </div>
-      <ul class="pl-5 mt-2">
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+
+      <ul class="space-y-1">
+        <li>
           <a
             routerLink="home"
             routerLinkActive="active"
-            class="flex gap-2 items-center text-sm"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-home" style="font-size: 1rem"></i>
             <span>Home</span>
           </a>
         </li>
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+        <li>
           <a
             routerLink="contas"
             routerLinkActive="active"
-            class="flex gap-2 items-center text-sm"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-wallet" style="font-size: 1rem"></i>
             <span>Contas</span>
           </a>
         </li>
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+        <li>
           <a
             routerLink="transacoes"
             routerLinkActive="active"
-            class="flex gap-2 items-center text-sm"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-arrow-right-arrow-left" style="font-size: 1rem"></i>
-            <span>Transações</span>
+            <span>Transações</span>
           </a>
         </li>
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+        <li>
           <a
-            class="flex gap-2 items-center text-sm"
             routerLink="produtos"
             routerLinkActive="active"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-barcode" style="font-size: 1rem"></i>
             <span>Produtos</span>
           </a>
         </li>
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+        <li>
           <a
-            class="flex gap-2 items-center text-sm"
             routerLink="caixa"
             routerLinkActive="active"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-box" style="font-size: 1rem"></i>
             <span>Caixa</span>
           </a>
         </li>
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+        <li>
           <a
-            class="flex gap-2 items-center text-sm"
             routerLink="calendar"
             routerLinkActive="active"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-calendar" style="font-size: 1rem"></i>
             <span>Calendário</span>
           </a>
         </li>
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+        <li>
           <a
-            class="flex gap-2 items-center text-sm"
             routerLink="clientes"
             routerLinkActive="active"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-users" style="font-size: 1rem"></i>
@@ -93,38 +105,47 @@
         </li>
       </ul>
     </div>
-    <div class="hidden md:block">
-      <div class="flex items-center gap-2 p-1 pl-2 bg-slate-300 rounded-md">
-        <i class="pi pi-key" style="font-size: 1rem"></i>
-        <h5>Autenticação</h5>
+
+    <!-- Authentication Section -->
+    <div class="hidden space-y-2 md:block">
+      <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-green-50">
+        <i class="text-green-600 pi pi-key" style="font-size: 1rem"></i>
+        <h5 class="font-medium text-gray-700">Autenticação</h5>
       </div>
-      <ul class="pl-5 mt-2">
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+
+      <ul class="space-y-1">
+        <li>
           <a
-            class="flex gap-2 items-center text-sm"
             routerLink="profile"
             routerLinkActive="active"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-user-edit" style="font-size: 1rem"></i>
-            <span>Profile</span>
+            <span>Perfil</span>
           </a>
         </li>
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
+        <li>
           <a
-            class="flex gap-2 items-center text-sm"
             routerLink="settings"
+            routerLinkActive="active"
+            class="flex items-center gap-3 px-3 py-2 text-sm text-gray-600 transition-colors duration-200 rounded-lg hover:bg-green-50 hover:text-green-600"
+            [routerLinkActive]="'bg-green-50 text-green-600'"
             (click)="toggleSidebar()"
           >
             <i class="pi pi-cog" style="font-size: 1rem"></i>
-            <span>Settings</span>
+            <span>Configurações</span>
           </a>
         </li>
-        <li class="mb-2 p-1 hover:bg-[#d4d1d1]">
-          <a class="flex gap-2 items-center text-sm">
+        <li>
+          <button
+            (click)="logout()"
+            class="flex items-center w-full gap-3 px-3 py-2 text-sm text-red-600 transition-colors duration-200 rounded-lg hover:bg-red-50"
+          >
             <i class="pi pi-sign-out" style="font-size: 1rem"></i>
-            <button (click)="logout()">Logout</button>
-          </a>
+            <span>Sair</span>
+          </button>
         </li>
       </ul>
     </div>

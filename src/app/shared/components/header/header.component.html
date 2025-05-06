@@ -1,6 +1,8 @@
 <header class="relative">
   <div
-    class="bg-blue-300 shadow-custom h-[70px] z-50 md:z-10 fixed right-0 left-0 px-3 flex justify-between items-center md:ml-[200px] transition-all duration-300"
+    class="bg-blue-300 shadow-custom h-[70px] z-50 md:z-10 fixed right-0 left-0 px-3 flex justify-between items-center transition-all duration-300"
+    [class.md:ml-[250px]]="currentState"
+    [class.md:ml-0]="!currentState"
   >
     <div class="flex items-center gap-5">
       <div class="md:hidden">

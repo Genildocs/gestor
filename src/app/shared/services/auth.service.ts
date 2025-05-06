@@ -7,7 +7,7 @@ import { Register as ResgisterUser } from '../interfaces/auth';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://api-gestor-x0c7.onrender.com/api/v1/auth';
+  private apiUrl = 'https://api-gestor-hz59.onrender.com/api/v1/auth';
   constructor(private http: HttpClient, private router: Router) {}
 
   registerUser(data: {
