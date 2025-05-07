@@ -1,50 +1,45 @@
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import {
-  CommonModule,
-  TitleCasePipe,
-  DatePipe,
-  UpperCasePipe,
-} from '@angular/common';
-import { SideBarComponent } from './side-bar/side-bar.component';
-import { HeaderComponent } from './header/header.component';
-import { ModalProfileComponent } from './modal-profile/modal-profile.component';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TableTransactionsComponent } from './table-transactions/table-transactions.component';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { TableModule } from 'primeng/table';
-import { Dialog } from 'primeng/dialog';
-import { Ripple } from 'primeng/ripple';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
-import { ConfirmDialog } from 'primeng/confirmdialog';
-import { InputTextModule } from 'primeng/inputtext';
-import { TextareaModule } from 'primeng/textarea';
-import { FileUpload } from 'primeng/fileupload';
-import { SelectModule } from 'primeng/select';
-import { Tag } from 'primeng/tag';
-import { RadioButton } from 'primeng/radiobutton';
-import { Rating } from 'primeng/rating';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputNumber } from 'primeng/inputnumber';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { ListboxModule, MenuModule } from 'headlessui-angular';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { DatePickerModule } from 'primeng/datepicker';
+import { Dialog } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { FileUpload } from 'primeng/fileupload';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { TableContasComponent } from './table-contas/table-contas.component';
-import { ModalAdicionarComponent } from './modal-adicionar/modal-adicionar.component';
-import { Select } from 'primeng/select';
-import { Toast } from 'primeng/toast';
-import { DatePickerModule } from 'primeng/datepicker';
-import { ChartContasComponent } from './chart-contas/chart-contas.component';
-import { NgApexchartsModule } from 'ng-apexcharts';
-import { CardValoresComponent } from './card-valores/card-valores.component';
-import { TableCaixaComponent } from './table-caixa/table-caixa.component';
-import { MenuModule } from 'headlessui-angular';
-import { ListboxModule } from 'headlessui-angular';
-import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.component';
-import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { InputNumber } from 'primeng/inputnumber';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputTextModule } from 'primeng/inputtext';
+import { PasswordModule } from 'primeng/password';
+import { RadioButton } from 'primeng/radiobutton';
+import { Rating } from 'primeng/rating';
+import { Ripple } from 'primeng/ripple';
+import { Select, SelectModule } from 'primeng/select';
+import { TableModule } from 'primeng/table';
+import { Tag } from 'primeng/tag';
+import { TextareaModule } from 'primeng/textarea';
+import { Toast, ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 import { AccountDeleteComponent } from './account-delete/account-delete.component';
-
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { CardValoresComponent } from './card-valores/card-valores.component';
+import { ChartContasComponent } from './chart-contas/chart-contas.component';
+import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.component';
+import { HeaderComponent } from './header/header.component';
+import { ModalAdicionarComponent } from './modal-adicionar/modal-adicionar.component';
+import { ModalProfileComponent } from './modal-profile/modal-profile.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
+import { TableCaixaComponent } from './table-caixa/table-caixa.component';
+import { TableContasComponent } from './table-contas/table-contas.component';
+import { TableTransactionsComponent } from './table-transactions/table-transactions.component';
 @NgModule({
   declarations: [
     SideBarComponent,
@@ -93,6 +88,11 @@ import { AccountDeleteComponent } from './account-delete/account-delete.componen
     MenuModule,
     ListboxModule,
     RouterOutlet,
+    PasswordModule,
+    InputSwitchModule,
+    DropdownModule,
+    CheckboxModule,
+    CalendarModule,
   ],
   exports: [
     SideBarComponent,

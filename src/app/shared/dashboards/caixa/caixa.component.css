@@ -12,3 +12,164 @@
 .borders {
   border: 1px solid red;
 }
+
+/* Estilos gerais */
+.container {
+  min-height: calc(100vh - 75px);
+  background-color: var(--background);
+}
+
+/* Cards de resumo */
+:host ::ng-deep .p-card {
+  transition: transform 0.2s ease-in-out;
+}
+
+:host ::ng-deep .p-card:hover {
+  transform: translateY(-5px);
+}
+
+:host ::ng-deep .p-card .p-card-header {
+  padding: 1rem;
+  background: rgba(59, 130, 246, 0.1);
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+:host ::ng-deep .p-card .p-card-content {
+  padding: 1.5rem;
+}
+
+/* Tabela */
+:host ::ng-deep .p-datatable {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep .p-datatable .p-datatable-header {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background: #f8fafc;
+  color: var(--foreground);
+  font-weight: 600;
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr {
+  transition: background-color 0.2s;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* Botões de ação */
+:host ::ng-deep .p-button.p-button-text {
+  color: var(--primary);
+}
+
+:host ::ng-deep .p-button.p-button-text:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+:host ::ng-deep .p-button.p-button-danger {
+  color: #ef4444;
+}
+
+:host ::ng-deep .p-button.p-button-danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Dialog */
+:host ::ng-deep .p-dialog {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+:host ::ng-deep .p-dialog .p-dialog-header {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding: 1.5rem;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  padding: 1rem;
+}
+
+/* Campos do formulário */
+:host ::ng-deep .p-dropdown,
+:host ::ng-deep .p-inputtext,
+:host ::ng-deep .p-inputnumber,
+:host ::ng-deep .p-calendar {
+  width: 100%;
+}
+
+:host ::ng-deep .p-dropdown:not(.p-disabled).p-focus,
+:host ::ng-deep .p-inputtext:enabled:focus,
+:host ::ng-deep .p-inputnumber:enabled:focus,
+:host ::ng-deep .p-calendar:enabled:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--primary);
+}
+
+/* Toast */
+:host ::ng-deep .p-toast {
+  z-index: 1000;
+}
+
+:host ::ng-deep .p-toast .p-toast-message {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  :host ::ng-deep .p-datatable .p-datatable-thead > tr > th,
+  :host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+    padding: 0.75rem;
+  }
+}
+
+/* Animações */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

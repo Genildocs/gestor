@@ -1,0 +1,65 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.warning-section {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilos para o checkbox */
+:host ::ng-deep .p-checkbox {
+  margin-right: 0.5rem;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box {
+  border-radius: 4px;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+/* Estilos para o botão de exclusão */
+:host ::ng-deep .p-button.p-button-danger {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+:host ::ng-deep .p-button.p-button-danger:hover {
+  background-color: #b91c1c;
+  border-color: #b91c1c;
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+}

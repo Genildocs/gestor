@@ -1,1 +1,128 @@
-<p>account-settings works!</p>
+<div class="container">
+  <p-toast></p-toast>
+
+  <!-- Informações Pessoais -->
+  <div class="mb-4 card">
+    <h2>Informações Pessoais</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="salvarPerfil()">
+      <div class="form-group">
+        <label for="nome">Nome Completo</label>
+        <input
+          id="nome"
+          type="text"
+          pInputText
+          formControlName="nome"
+          class="w-full"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input
+          id="email"
+          type="email"
+          pInputText
+          formControlName="email"
+          class="w-full"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="telefone">Telefone</label>
+        <input
+          id="telefone"
+          type="tel"
+          pInputText
+          formControlName="telefone"
+          class="w-full"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="dataNascimento">Data de Nascimento</label>
+        <p-calendar
+          id="dataNascimento"
+          formControlName="dataNascimento"
+          [showIcon]="true"
+          dateFormat="dd/mm/yy"
+          class="w-full"
+        ></p-calendar>
+      </div>
+
+      <div class="flex justify-end">
+        <p-button
+          type="submit"
+          label="Salvar Alterações"
+          icon="pi pi-save"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Alterar Senha -->
+  <div class="mb-4 card">
+    <h2>Alterar Senha</h2>
+    <form [formGroup]="passwordForm" (ngSubmit)="atualizarSenha()">
+      <div class="form-group">
+        <label for="senhaAtual">Senha Atual</label>
+        <p-password
+          id="senhaAtual"
+          formControlName="senhaAtual"
+          [toggleMask]="true"
+          [feedback]="false"
+          class="w-full"
+        ></p-password>
+      </div>
+
+      <div class="form-group">
+        <label for="novaSenha">Nova Senha</label>
+        <p-password
+          id="novaSenha"
+          formControlName="novaSenha"
+          [toggleMask]="true"
+          class="w-full"
+        ></p-password>
+      </div>
+
+      <div class="flex justify-end">
+        <p-button
+          type="submit"
+          label="Atualizar Senha"
+          icon="pi pi-key"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Preferências -->
+  <div class="card">
+    <h2>Preferências</h2>
+    <div class="preferences">
+      <div class="preference-item">
+        <label>Notificações por E-mail</label>
+        <p-inputSwitch
+          [(ngModel)]="notifications"
+          (onChange)="toggleNotifications()"
+        ></p-inputSwitch>
+      </div>
+
+      <div class="preference-item">
+        <label>Tema Escuro</label>
+        <p-inputSwitch
+          [(ngModel)]="darkMode"
+          (onChange)="toggleDarkMode()"
+        ></p-inputSwitch>
+      </div>
+
+      <div class="preference-item">
+        <label>Idioma</label>
+        <p-dropdown
+          [options]="languages"
+          [(ngModel)]="selectedLanguage"
+          (onChange)="alterarIdioma($event.value)"
+          class="w-full"
+        ></p-dropdown>
+      </div>
+    </div>
+  </div>
+</div>

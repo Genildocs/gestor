@@ -1,14 +1,196 @@
-<div class="pt-[75px] md:ml-[210px] mx-[10px] h-full">
-  <h5>Dashboards - Caixa</h5>
-  <div class="card">
-    <div>
-      <div>Entradas</div>
-      <div>Saidas</div>
-      <div class="borders grid grid-cols-2 gap-3 p-1">
-        <div class="borders">Receitas</div>
-        <div class="borders">Despesas</div>
-        <div class="col-span-2 borders">Resultado Mensal</div>
+<div class="container p-4">
+  <p-toast></p-toast>
+
+  <!-- Cabeçalho -->
+  <div class="mb-4">
+    <h1 class="text-2xl font-bold text-primary">Controle de Caixa</h1>
+    <p class="text-gray-600">Gerencie suas entradas e saídas financeiras</p>
+  </div>
+
+  <!-- Cards de Resumo -->
+  <div class="grid grid-cols-1 gap-4 mb-6 md:grid-cols-3">
+    <p-card header="Saldo Atual" class="shadow-lg">
+      <div
+        class="text-2xl font-bold"
+        [ngClass]="{
+          'text-green-600': saldoAtual >= 0,
+          'text-red-600': saldoAtual < 0
+        }"
+      >
+        {{ saldoAtual | currency : "BRL" }}
+      </div>
+    </p-card>
+
+    <p-card header="Total de Entradas" class="shadow-lg">
+      <div class="text-2xl font-bold text-green-600">
+        {{ totalEntradas | currency : "BRL" }}
+      </div>
+    </p-card>
+
+    <p-card header="Total de Saídas" class="shadow-lg">
+      <div class="text-2xl font-bold text-red-600">
+        {{ totalSaidas | currency : "BRL" }}
+      </div>
+    </p-card>
+  </div>
+
+  <!-- Botão Nova Transação -->
+  <div class="mb-4">
+    <p-button
+      label="Nova Transação"
+      icon="pi pi-plus"
+      (onClick)="abrirDialog()"
+    ></p-button>
+  </div>
+
+  <!-- Tabela de Transações -->
+  <p-table
+    [value]="transacoes"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} transações"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    styleClass="p-datatable-sm"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Data</th>
+        <th>Tipo</th>
+        <th>Categoria</th>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>Forma de Pagamento</th>
+        <th>Ações</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-transacao>
+      <tr>
+        <td>{{ transacao.data | date : "dd/MM/yyyy" }}</td>
+        <td>
+          <span
+            [ngClass]="{
+              'text-green-600': transacao.tipo === 'entrada',
+              'text-red-600': transacao.tipo === 'saida'
+            }"
+          >
+            {{ transacao.tipo === "entrada" ? "Entrada" : "Saída" }}
+          </span>
+        </td>
+        <td>{{ transacao.categoria }}</td>
+        <td>{{ transacao.descricao }}</td>
+        <td
+          [ngClass]="{
+            'text-green-600': transacao.tipo === 'entrada',
+            'text-red-600': transacao.tipo === 'saida'
+          }"
+        >
+          {{ transacao.valor | currency : "BRL" }}
+        </td>
+        <td>{{ transacao.formaPagamento }}</td>
+        <td>
+          <div class="flex gap-2">
+            <p-button
+              icon="pi pi-pencil"
+              (onClick)="editarTransacao(transacao)"
+              styleClass="p-button-rounded p-button-text"
+            ></p-button>
+            <p-button
+              icon="pi pi-trash"
+              (onClick)="excluirTransacao(transacao)"
+              styleClass="p-button-rounded p-button-text p-button-danger"
+            ></p-button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <!-- Dialog de Transação -->
+  <p-dialog
+    [(visible)]="transacaoDialog"
+    [style]="{ width: '450px' }"
+    header="Transação"
+    [modal]="true"
+    styleClass="p-fluid"
+  >
+    <div class="grid grid-cols-1 gap-4">
+      <div class="field">
+        <label for="tipo">Tipo</label>
+        <p-dropdown
+          id="tipo"
+          [(ngModel)]="transacao.tipo"
+          [options]="['entrada', 'saida']"
+          placeholder="Selecione o tipo"
+        ></p-dropdown>
+      </div>
+
+      <div class="field">
+        <label for="categoria">Categoria</label>
+        <p-dropdown
+          id="categoria"
+          [(ngModel)]="transacao.categoria"
+          [options]="categorias"
+          placeholder="Selecione a categoria"
+        ></p-dropdown>
+      </div>
+
+      <div class="field">
+        <label for="descricao">Descrição</label>
+        <input
+          id="descricao"
+          type="text"
+          pInputText
+          [(ngModel)]="transacao.descricao"
+          placeholder="Digite a descrição"
+        />
+      </div>
+
+      <div class="field">
+        <label for="valor">Valor</label>
+        <p-inputNumber
+          id="valor"
+          [(ngModel)]="transacao.valor"
+          mode="currency"
+          currency="BRL"
+          locale="pt-BR"
+        ></p-inputNumber>
+      </div>
+
+      <div class="field">
+        <label for="data">Data</label>
+        <p-calendar
+          id="data"
+          [(ngModel)]="transacao.data"
+          [showIcon]="true"
+          dateFormat="dd/mm/yy"
+        ></p-calendar>
+      </div>
+
+      <div class="field">
+        <label for="formaPagamento">Forma de Pagamento</label>
+        <p-dropdown
+          id="formaPagamento"
+          [(ngModel)]="transacao.formaPagamento"
+          [options]="formasPagamento"
+          placeholder="Selecione a forma de pagamento"
+        ></p-dropdown>
       </div>
     </div>
-  </div>
+
+    <ng-template pTemplate="footer">
+      <p-button
+        icon="pi pi-times"
+        label="Cancelar"
+        (onClick)="fecharDialog()"
+        styleClass="p-button-text"
+      ></p-button>
+      <p-button
+        icon="pi pi-check"
+        label="Salvar"
+        (onClick)="salvarTransacao()"
+      ></p-button>
+    </ng-template>
+  </p-dialog>
 </div>

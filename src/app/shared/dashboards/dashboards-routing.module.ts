@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { TransacoesComponent } from './transacoes/transacoes.component';
 import { ContasComponent } from './contas/contas.component';
 import { AuthGuard } from '../services/auth.guard';
+import { CaixaComponent } from './caixa/caixa.component';
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -62,10 +63,7 @@ const routes: Routes = [
 
       {
         path: 'caixa',
-        loadChildren: () =>
-          import('./caixa/caixa-routing.module').then(
-            (m) => m.CaixaRoutingModule
-          ),
+        component: CaixaComponent,
       },
       {
         path: 'settings',

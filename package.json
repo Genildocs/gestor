@@ -25,6 +25,7 @@
     "@primeng/themes": "^19.0.1",
     "apexcharts": "^4.3.0",
     "headlessui-angular": "^0.0.9",
+    "jwt-decode": "^4.0.0",
     "luxon": "^3.5.0",
     "ng-apexcharts": "^1.13.0",
     "primeicons": "^7.0.0",

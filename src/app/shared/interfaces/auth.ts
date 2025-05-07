@@ -1,5 +1,5 @@
 export interface Register {
-  username: string;
+  nome: string;
   email: string;
   password: string;
 }
@@ -7,4 +7,16 @@ export interface Register {
 export interface Login {
   email: string;
   password: string;
+}
+
+export interface User {
+  id: string;
+  nome: string;
+  email: string;
+  role: string;
+}
+
+export interface LoginResponse {
+  token: string;
+  username: string;
 }
